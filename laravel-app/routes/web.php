@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::controller(SecretariaController::class)->group(function() { 
     Route::get('secretaria/dashboard','dashboard')->name('secretaria.dashboard');
 
@@ -37,4 +38,8 @@ Route::controller(PsicoController::class)->group(function() {
 
 
 });
+
+
+
+
 require __DIR__.'/auth.php';
