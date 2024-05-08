@@ -35,4 +35,13 @@ class PsicologaTest extends TestCase
         $this->assertTrue($result);
         $this->assertNotNull($user->id);
     }
+
+    public function testpsicodashboardrender(): void
+    {
+        $response = $this->get('/dashboard-ps');
+        $response ->  assertOk();
+    }
+
+    
+
 }
