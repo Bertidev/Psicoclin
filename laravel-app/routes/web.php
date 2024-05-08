@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\PsicoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +25,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::controller(SecretariaController::class)->group(function() { 
+    Route::get('secretaria/dashboard','dashboard')->name('secretaria.dashboard');
+
+
+});
+
+Route::controller(PsicoController::class)->group(function() { 
+    Route::get('psicologo/dashboard','dashboard')->name('psicologo.dashboard');
+
+
+});
+
 
 
 
