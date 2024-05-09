@@ -34,10 +34,8 @@ Route::controller(SecretariaController::class)->group(function() {
 });
 
 Route::controller(PsicoController::class)->group(function() { 
-    Route::get('psicologo/dashboard','dashboard')->name('psicologo.dashboard');
-
-
-});
+    Route::get('/dashboard-ps','dashboard')->name('psicologo.dashboard');
+})->middleware('auth')->name('dashboard');
 
 
 
