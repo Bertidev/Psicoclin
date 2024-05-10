@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PsicoController;
+use App\Http\Controllers\AdmController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,11 @@ Route::controller(PsicoController::class)->group(function() {
 
 });
 
+Route::controller(AdmController::class)->group(function() { 
+    Route::get('adm/dashboard','dashboard')->name('adm.dashboard');
+
+
+});
 
 
 
