@@ -16,6 +16,6 @@ class AdmController extends Controller
 {
     public function dashboard()
     {
-        return Inertia::render('Adm/Menu');
+        return Inertia::render('Admin/Menu');
     }
 }
