@@ -19,22 +19,23 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    cep: user.cep,
 });
 </script>
 
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">Informação de perfil</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Update your account's profile information and email address.
+                Atualizar as informações de sua conta e endereço de email.
             </p>
         </header>
 
         <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Nome" />
 
                 <TextInput
                     id="name"
@@ -85,8 +86,21 @@ const form = useForm({
                 </div>
             </div>
 
+            <div>
+                <InputLabel for="cep" value="Cep" />
+
+                <TextInput
+                    id="cep"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.cep"
+                    required
+                    autocomplete="username"
+                />
+            </div>
+
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -94,7 +108,7 @@ const form = useForm({
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Salvo.</p>
                 </Transition>
             </div>
         </form>
