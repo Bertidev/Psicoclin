@@ -1,0 +1,48 @@
+PRÉ REQUISITOS:
+1-TER O NODE INSTALADO EM SUA MAQUINA, LINK PARA A INSTALAÇÃO:
+	https://nodejs.org/en/download
+
+2-TER DOCKER INSTALADO NA SUA MAQUINA
+	https://www.docker.com/products/docker-desktop/
+
+3-TER GIT INSTALADO NA SUA MAQUINA
+	https://git-scm.com/downloads
+
+COMO USAR:
+1-dê o comando "git clone [link do repositorio]" no terminal em uma pasta de sua escolha, ou baixe o .zip através da release
+
+2-FAZER OS COMANDOS EM ORDEM:
+
+ ->REMOVER ".EXAMPLE" DO ARQUIVO ".ENV" E ALTERAR O CAMPO "DB_PASSWORD=" PARA "DB_PASSWORD=root"
+
+ ->INSTALAR DEPENDENCIAS DO NODE FORA DO CONTAINER
+	npm install
+
+ ->CRIAR A IMAGEM NO DOCKER E FAZER O CONTAINER A PARTIR DA IMAGEM:
+	docker compose up -d --build
+
+ ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
+	docker exec laravel-electron bash -c "composer update && php artisan key:generate"
+
+ ->PARA O BANCO DE DADOS
+	docker exec laravel-electron bash -c "php artisan migrate --seed"
+
+ ->RODE O SERVER NODE
+	docker exec laravel-electron bash -c "npm install && npm run build"
+
+ ->RODAR O ELECTRON FORA DO CONTAINER
+	npm start
+
+LOGIN ADMIN:
+	xastre@admin.com
+	saopaulo
+
+LOGIN USER:
+	guto@gigantesco.com
+	password
+
+LINK LARAVEL:
+	http://localhost:9000/public
+	
+LINK PHPMYADMIN(servidor:mysql_db | usuario:root | senha:root):
+	http://localhost:9001

@@ -87,7 +87,7 @@ function createWindow () {
   server.run();
   
   mainWindow = new BrowserWindow({width: 1600, height: 983})
-  mainWindow.loadURL('http://localhost:8000/public/')
+  mainWindow.loadURL('http://localhost:8000')
   
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
