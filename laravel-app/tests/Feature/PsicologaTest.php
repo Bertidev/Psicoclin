@@ -14,7 +14,7 @@ class PsicologaTest extends TestCase
 
     public function test_unauthenticated_user_cannot_acess_psico_page(): void
     {
-        $response = $this->get('/dasshboard-ps');
+        $response = $this->get('/dashboard-ps');
 
         $response->assertRedirect('login');
     }
