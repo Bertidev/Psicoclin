@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
-=======
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
->>>>>>> 7ed2cb881a75fe2e9976a8b4137a171c3883bf19
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
