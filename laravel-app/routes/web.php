@@ -1,16 +1,19 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\PsicoController;
+use App\Http\Controllers\AdmController;
+>>>>>>> 7ed2cb881a75fe2e9976a8b4137a171c3883bf19
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'foo' => 'bar'
     ]);
 });
 
@@ -35,6 +38,11 @@ Route::controller(PsicoController::class)->group(function() {
     Route::get('/dashboard-ps','dashboard')->name('psicologo.dashboard');
 })->middleware('auth')->name('dashboard');
 
+Route::controller(AdmController::class)->group(function() { 
+    Route::get('adm/dashboard','dashboard')->name('adm.dashboard');
+
+
+});
 
 
 

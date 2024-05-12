@@ -47,5 +47,16 @@ class DatabaseSeeder extends Seeder
                 'role' => '0',
             ],
         ]);
+
+        DB::table('users')->insert([
+            //paciente
+            [
+                'name' =>  'Guto',
+                'email' => 'guto@gigantesco.com',
+                'password' => Hash::make('password'),
+                'cep'=>'13272000',
+                'role' => '3',
+            ],
+        ]);
     }
 }
