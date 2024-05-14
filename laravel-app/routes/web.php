@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -32,10 +32,8 @@ Route::controller(SecretariaController::class)->group(function() {
 });
 
 Route::controller(PsicoController::class)->group(function() { 
-    Route::get('psicologo/dashboard','dashboard')->name('psicologo.dashboard');
-
-
-});
+    Route::get('/dashboard-ps','dashboard')->name('psicologo.dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 
     Route::get('adm/dashboard','dashboard')->name('adm.dashboard');

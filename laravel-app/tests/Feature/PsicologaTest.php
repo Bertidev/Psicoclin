@@ -14,7 +14,7 @@ class PsicologaTest extends TestCase
 
     public function test_unauthenticated_user_cannot_acess_psico_page(): void
     {
-        $response = $this->get('/psico');
+        $response = $this->get('/dashboard-ps');
 
         $response->assertRedirect('login');
     }
@@ -26,7 +26,7 @@ class PsicologaTest extends TestCase
         $user->name = 'John Doe';
         $user->email = 'john@example.com';
         $user->password = 'secret123';
-        $user->role = 'psicologo'; // Definir o papel do usuário
+        $user->role = '2'; // Definir o papel do usuário
 
         // Salvar o usuário
         $result = $user->save();

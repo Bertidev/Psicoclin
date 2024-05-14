@@ -2,14 +2,14 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width">
         <title></title>
         <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     </head>
     <div>
         <div style="background-color: #f8f9fa; padding: 1rem 0;">
-            <img src="images/marca.jpg" alt="Psicoclin" style="width: 50%;">
+            <img src="images/marca.jpg" alt="Psicoclin" style="width: 25%;">
         </div>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -30,7 +30,7 @@
                 </ul>
             </div>
         </nav>   
-        <div id="content" class="container" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+        <div id="content" class="container" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
             <div class="row" v-if="activePage === 0">
                
                 <div class="col-md-4 offset-md-4 text-center">

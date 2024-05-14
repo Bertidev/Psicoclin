@@ -1,4 +1,5 @@
 FROM php:8.2.0-apache
+
 WORKDIR /var/www/html
 
 # Mod Rewrite
@@ -28,3 +29,6 @@ RUN docker-php-ext-install gettext intl pdo_mysql gd
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
+
+#Apache
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
