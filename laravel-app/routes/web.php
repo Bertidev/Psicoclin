@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\PsicoController;
+use App\Http\Controllers\AdmController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'foo' => 'bar'
     ]);
 });
 
@@ -23,5 +23,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::controller(SecretariaController::class)->group(function() { 
+    Route::get('secretaria/dashboard','dashboard')->name('secretaria.dashboard');
+
+
+});
+
+Route::controller(PsicoController::class)->group(function() { 
+    Route::get('psicologo/dashboard','dashboard')->name('psicologo.dashboard');
+
+
+});
+
+Route::controller(AdmController::class)->group(function() { 
+    Route::get('adm/dashboard','dashboard')->name('adm.dashboard');
+
+
+});
+
+
 
 require __DIR__.'/auth.php';

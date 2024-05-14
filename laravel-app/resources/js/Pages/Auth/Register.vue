@@ -11,6 +11,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    cep:'',
 });
 
 const submit = () => {
@@ -22,11 +23,11 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head title="Cadastro" />
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Nome" />
 
                 <TextInput
                     id="name"
@@ -57,7 +58,21 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="cep" value="Cep" />
+
+                <TextInput
+                    id="cep"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.cep"
+                    required
+                    autocomplete="username"
+                />
+
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="password" value="Senha" />
 
                 <TextInput
                     id="password"
@@ -72,7 +87,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirmar Senha" />
 
                 <TextInput
                     id="password_confirmation"
@@ -91,11 +106,11 @@ const submit = () => {
                     :href="route('login')"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Already registered?
+                    Já é cadastrado ?
                 </Link>
 
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    Cadastrar
                 </PrimaryButton>
             </div>
         </form>
