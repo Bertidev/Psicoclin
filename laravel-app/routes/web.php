@@ -25,22 +25,23 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::controller(SecretariaController::class)->group(function() { 
-    Route::get('secretaria/dashboard','dashboard')->name('secretaria.dashboard');
-
-
+Route::controller(SecretariaController::class)->group(function () {
+    Route::get('secretaria/dashboard', 'dashboard')->name('secretaria.dashboard');
+    Route::get('secretaria/save','save')->name('secretaria.save');
+    Route::get('secretaria/createpaciente','create')->name('secretaria.create');
+    Route::get('secretaria/edit/{id}','edit')->name('secretaria.edit');
+    Route::put('secretaria/update/{id}','update')->name('secretaria.update');
+    Route::get('secretaria/delete/{id}','delete')->name('secretaria.delete');
 });
 
-Route::controller(PsicoController::class)->group(function() { 
-    Route::get('/dashboard-ps','dashboard')->name('psicologo.dashboard');
+Route::controller(PsicoController::class)->group(function () {
+    Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');
 })->middleware('auth')->name('dashboard');
 
-Route::controller(AdmController::class)->group(function() { 
-    Route::get('adm/dashboard','dashboard')->name('adm.dashboard');
-
-
+Route::controller(AdmController::class)->group(function () {
+    Route::get('adm/dashboard', 'dashboard')->name('adm.dashboard');
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

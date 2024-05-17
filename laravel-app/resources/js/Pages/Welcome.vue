@@ -30,7 +30,7 @@
                 </ul>
             </div>
         </nav>   
-        <div id="content" class="container" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
+        <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
             <div class="row" v-if="activePage === 0">
                
                 <div class="col-md-4 offset-md-4 text-center">

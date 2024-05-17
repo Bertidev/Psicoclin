@@ -38,13 +38,13 @@ class SecretariaController extends Controller
         ]);
         event(new Registered($user));
 
-        return Inertia::render('Secretaria/CreatePaciente');
+        return Inertia::render('Secretaria/create');
     }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return Inertia::render('Secretaria/Edit', compact('user'));
+        return Inertia::render('Secretaria/edit', compact('user'));
     }
 
     public function update(Request $request, $id)
