@@ -1,117 +1,13 @@
-<template>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
-    <title></title>
-    <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
-<body>
-    <div>
-        <div style="background-color: #f8f9fa; padding: 1rem 0;">
-            <img src="images/marca.jpg" alt="Psicoclin" style="width: 25%;">
-        </div>
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    Psicoclin
-                </a>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li v-for="(page, index) in pages" class="nav-item" :key="index">
-                        <a 
-                            class="nav-link" 
-                            aria-current="page" 
-                            :href="page.link.url"
-                            :title="`this link goes to the ${page.link.text} page`"
-                            @click.prevent="activePage = index"
-                        >{{page.link.text}}</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mr-3">
-                    <li class="nav-item">
-                        <a
-                            v-if="$page.props.auth.user"
-                            :href="route('dashboard')"
-                            class="nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Dashboard
-                        </a>
-                        <template v-else>
-                            <a
-                                :href="route('login')"
-                                class="nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            >
-                                Já é paciente?
-                            </a>
-                        </template>
-                    </li>
-                </ul>
-            </div>
-        </nav>   
-        <div id="content" class="container" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
-            <div class="row" v-if="activePage === 0">
-                <div class="col-md-4 offset-md-4 text-center">
-                    <h2>{{ info[0].titulo }}</h2>
-                    <p>{{ info[0].conteudo }}</p>
-                </div>
-                <div class="col-md-12 text-center" v-if="activePage === 0">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <h2>{{ info[1].titulo }}</h2>
-                            <p>{{ info[1].conteudo }}</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h2>{{ info[2].titulo }}</h2>
-                            <p>{{ info[2].conteudo }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" v-if="activePage === 1">
-                <div class="col-md-4 offset-md-4 text-center">
-                    <h1>{{ info[1].titulo }}</h1>
-                    <p>{{ info[1].conteudo }}</p>
-                </div>
-            </div>
-            <div class="row" v-if="activePage === 2">
-                <h3>{{ pages[activePage].pageTitle}}</h3>
-                <p>{{pages[activePage].content}}</p>
-            </div>
-        </div>
-    </div>
-    <footer class="bg-light text-center text-lg-start" style="padding: 2rem 0; color: #6c757d;">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Onde Estamos</h5>
-                    <p>
-                        A Psicoclin está localizada no Cittá Office Mall, na Av. das Américas, 700, Bloco 3, Sala 118, na Barra da Tijuca, Rio de Janeiro, RJ. O CEP é 22640-100.
-                    </p>
-                    <p>
-                        Referências de localização:
-                        Ao lado do Shopping Downtown.
-                        Perto do supermercado ASSAÍ.
-                        Em frente à estação BRT Bosque Marapendi.
-                    </p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-                </div>
-            </div>
-        </div>
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); color: #6c757d;">
-            &copy; {{ new Date().getFullYear() }} Psicoclin. All rights reserved.
-        </div>
-    </footer>
-
-</body>
-</template>
-
 <script setup>
+import Checkbox from '@/Components/Checkbox.vue';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+
+
 import { ref } from 'vue';
 
 const activePage = ref(0);
@@ -133,7 +29,35 @@ const pages = [
         content: 'This is the contact content'
     }
 ];
-
+const relatos=[
+        {
+            nome:'',
+            idade:'',
+            conteudo:''
+        },
+        {
+            nome:'',
+            idade:'',
+            conteudo:''
+        },
+        {
+            nome:'',
+            idade:'',
+            conteudo:''
+        },
+        {
+            nome:'',
+            idade:'',
+            conteudo:''
+        },
+];
+const contatos=[
+        {
+            Email:'',
+            Telefone:'',
+            Horario:''
+        }
+];
 const info=[
     {
         titulo: 'A Psicoclin',
@@ -141,7 +65,7 @@ const info=[
     },
     {
         titulo: 'A Equipe',
-        conteudo:'A clínica conta com uma equipe de 21 psicólogos especializados em diversas áreas da psicologia. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades.'
+        conteudo:'A clínica conta com uma equipe de 4 psicólogos especializados em diversas áreas da psicologia. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades.'
     },
     {
         titulo: 'Compromisso',
@@ -166,3 +90,99 @@ defineProps({
     },
 });
 </script>
+
+<template>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <title></title>
+        <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div>
+            <div class="d-flex justify-content-center" style="background-color: #728360; padding: 1rem 0;">
+                <img src="images/marca.png" alt="Psicoclin" style="width: 25%;">
+            </div>
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        Psicoclin
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li v-for="(page, index) in pages" class="nav-item" :key="index">
+                            <a 
+                                class="nav-link" 
+                                aria-current="page" 
+                                :href="page.link.url"
+                                :title="`this link goes to the ${page.link.text} page`"
+                                @click.prevent="activePage = index"
+                            >{{page.link.text}}</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mr-3">
+                        <li class="nav-item">
+                            <a href="/login">
+                                <button class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    Login
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>   
+            <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
+                <div class="row" v-if="activePage === 0">
+                    <div class="col-md-4 offset-md-4 text-center">
+                        <h2>{{ info[0].titulo }}</h2>
+                        <p>{{ info[0].conteudo }}</p>
+                    </div>
+                    <div class="col-md-12 text-center" v-if="activePage === 0">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <h2>{{ info[1].titulo }}</h2>
+                                <p>{{ info[1].conteudo }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h2>{{ info[2].titulo }}</h2>
+                                <p>{{ info[2].conteudo }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" v-if="activePage === 1">
+                    <div class="col-md-4 offset-md-4 text-center">
+                        <h1>{{ info[1].titulo }}</h1>
+                        <p>{{ info[1].conteudo }}</p>
+                    </div>
+                </div>
+                <div class="row" v-if="activePage === 2">
+                    <h3>{{ pages[activePage].pageTitle}}</h3>
+                    <p>{{pages[activePage].content}}</p>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-light text-center text-lg-start" style="padding: 2rem 0; color: #6c757d;">
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Onde Estamos</h5>
+                        <p>
+                            A Psicoclin está localizada no Cittá Office Mall, na Av. das Américas, 700, Bloco 3, Sala 118, na Barra da Tijuca, Rio de Janeiro, RJ. O CEP é 22640-100.
+                        </p>
+                        <p>
+                            Referências de localização:
+                            Ao lado do Shopping Downtown.
+                            Perto do supermercado ASSAÍ.
+                            Em frente à estação BRT Bosque Marapendi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); color: #6c757d;">
+                &copy; {{ new Date().getFullYear() }} Psicoclin. All rights reserved.
+            </div>
+        </footer>
+    </body>
+</template>
