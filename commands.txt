@@ -18,31 +18,42 @@ COMO USAR:
  ->INSTALAR DEPENDENCIAS DO NODE FORA DO CONTAINER
 	npm install
 
- ->CRIAR A IMAGEM NO DOCKER E FAZER O CONTAINER A PARTIR DA IMAGEM:
-	docker compose up -d --build
+->docker swarm init//inicia o swarm
+
+->docker deploy docker-compose.yml -c [nome desejado]//cria os containers
+
+->docker swarm leave --force // sai do swarm caso queira parar de usar nosso programa
 
  ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
-	docker exec laravel-electron bash -c "composer update && php artisan key:generate"
+	docker exec [nome do container] bash -c "composer update && php artisan key:generate"
 
  ->PARA O BANCO DE DADOS
-	docker exec laravel-electron bash -c "php artisan migrate --seed"
+	docker exec [nome do container] bash -c "php artisan migrate --seed"
 
  ->RODE O SERVER NODE
-	docker exec laravel-electron bash -c "npm install && npm run build"
+	docker exec [nome do container] bash -c "npm install && npm run build"
 
  ->RODAR O ELECTRON FORA DO CONTAINER
 	npm start
 
 LOGIN ADMIN:
-	xastre@admin.com
-	saopaulo
-
-LOGIN USER:
 	guto@gigantesco.com
 	password
 
+LOGIN SECRETARIA:
+	denis@denis.com
+	password
+
+LOGIN PSICOLOGO:
+	magas@magas.com
+	password
+
+LOGIN PACIENTE:
+	berti@berti.com
+	password
+
 LINK LARAVEL:
-	http://localhost:9000/public
+	http://localhost:8000
 	
 LINK PHPMYADMIN(servidor:mysql_db | usuario:root | senha:root):
 	http://localhost:9001
