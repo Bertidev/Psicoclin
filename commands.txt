@@ -20,7 +20,7 @@ COMO USAR:
 
 ->docker swarm init//inicia o swarm
 
-->docker deploy docker-compose.yml -c [nome desejado]//cria os containers
+->docker stack deploy -c docker-compose.yml [nome-do-servico]//cria os containers
 
 ->docker swarm leave --force // sai do swarm caso queira parar de usar nosso programa
 
