@@ -15,7 +15,11 @@ function excluir (id)
 }
 function editar(id)
 {
-    router.patch(route('adm.edit',id))
+    router.get(route('adm.edit',id))
+}
+function criar()
+{
+    router.get(route('adm.create'))
 }
 </script>
 
@@ -28,13 +32,12 @@ function editar(id)
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Secretários</h2>
-                        <a href="{{ route('adm.create') }}">
-                        <primary-button>Cadastrar</primary-button>
-                        </a>          
+                        <primary-button @click="criar()"
+                            >Cadastrar</primary-button> 
                     </header>
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
@@ -68,11 +71,62 @@ function editar(id)
                             </td>
                             <td>
                                 
-                                <primary-button @click="editar(secretario.id)"
-                                            >Editar</primary-button>
+                                <SecondaryButton @click="editar(secretario.id)"
+                                            >Editar</SecondaryButton>
                                 
 
                                 <DangerButton @click="excluir(secretario.id)"
+                                            >Excluir</DangerButton>
+                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <header class="px-5 py-4 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">Psicólogos</h2>
+                        <primary-button @click="criar()"
+                            >Cadastrar</primary-button> 
+                    </header>
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Nome</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Email</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Cep</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left"></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100">
+                            <tr v-for="psicologo in psicologos">
+                            <td class="p-2 whitespace-nowrap">
+                                <div class="flex items-center">
+                                <div class="font-medium text-gray-800">{{psicologo.name}}</div>
+                                </div>
+                            </td>
+                            <td class="p-2 whitespace-nowrap">
+                                <div class="text-left">{{psicologo.email}}</div>
+                            </td>
+                            <td class="p-2 whitespace-nowrap">
+                                <div class="text-left font-medium">{{psicologo.cep}}</div>
+                            </td>
+                            <td>
+                                
+                                <SecondaryButton @click="editar(psicologo.id)"
+                                            >Editar</SecondaryButton>
+                                
+
+                                <DangerButton @click="excluir(psicologo.id)"
                                             >Excluir</DangerButton>
                                 
                                 </td>

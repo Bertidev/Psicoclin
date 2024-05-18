@@ -6,33 +6,38 @@ import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
+import DropdownLink from '@/Components/DropdownLink.vue';
 
-const props = defineProps({ user: Object });
+defineProps({
+    errors:Object
+})
 
 const form = useForm({
-    name: props.user.name,
-    email: props.user.email,
-    cep: props.user.cep,
-    password: props.user.password
+    name: '',
+    email: '',
+    password: '',
+    role: '',
+    cep: ''
 });
 
-function send(id) {
-    router.put('/adm/' + id, form);
-}
+const submit = () =>{
+    form.post(route('adm.save'));
+};
+
 </script>
 
 <template>
-    <Head title="Editar Informacoes" />
+    <Head title="Cadastrar Funcionario" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Alterar Informações de funcionários</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Cadastrar novo funcionário</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <form @submit.prevent="send(user.id)" class="mt-6 space-y-6">
+                    <form @submit.prevent="submit" class="mt-6 space-y-6">
                         <div>
                             <InputLabel for="name" value="Nome" />
 
@@ -95,6 +100,21 @@ function send(id) {
                                 v-model="form.password"
                                 autocomplete="new-password"
                             />
+                            <InputError class="mt-2" :message="form.errors.password" />
+                        </div>
+                        
+                        <div>
+                            
+                            <InputLabel for="role" value="Tipo" />
+
+                            <TextInput
+                                id="role"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.role"
+                                required
+                            />
+                            <InputError class="mt-2" :message="form.errors.role" />
                         </div>
 
                         <div>
@@ -109,6 +129,7 @@ function send(id) {
                                 required
                                 autocomplete="postal-code"
                             />
+                            <InputError class="mt-2" :message="form.errors.cep" />
                         </div>
 
                         <div>
