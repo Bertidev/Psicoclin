@@ -1,21 +1,14 @@
 version: '3.8'
 
-networks:
-  my-network:
-    name: my-network
-    driver: bridge
-
 services:
   laravel_app:
+    image: diphinius/laravel-app:latest
     container_name: laravel-electron
     build: .
     volumes:
       - ./laravel-app:/var/www/html
     ports:
       - 8000:80
-      
-    networks:
-      - my-network
 
   mysql_db:
     image: mysql:latest
@@ -24,8 +17,6 @@ services:
       MYSQL_DATABASE: laravel_electron
     ports:
       - 3306:3306
-    networks:
-      - my-network
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -33,5 +24,3 @@ services:
       - 9001:80
     environment:
       - PMA_ARBITRARY=1
-    networks:
-      - my-network
