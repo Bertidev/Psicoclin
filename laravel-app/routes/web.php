@@ -33,12 +33,15 @@ Route::controller(SecretariaController::class)->group(function() {
 
 Route::controller(PsicoController::class)->group(function() { 
     Route::get('/dashboard-ps','dashboard')->name('psicologo.dashboard');
+
+
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 
     Route::get('adm/dashboard','dashboard')->name('adm.dashboard');
-
-
+    Route::get('adm/create','create')->name('adm.create');
+    Route::patch('adm/edit/{id}','edit')->name('adm.edit');
+    Route::delete('adm/delete/{id},','delete')->name('adm.delete');
 });
 
 
