@@ -19,7 +19,9 @@ COMO USAR:
 	npm install
 
  ->CRIAR A IMAGEM NO DOCKER E FAZER O CONTAINER A PARTIR DA IMAGEM:
-	docker compose up -d --build
+	docker swarm init
+
+->docker deploy docker-compose.yml -c [nome desejado]
 
  ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
 	docker exec laravel-electron bash -c "composer update && php artisan key:generate"
