@@ -7,7 +7,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-
 import { ref } from 'vue';
 
 const activePage = ref(0);
@@ -29,47 +28,50 @@ const pages = [
         content: 'This is the contact content'
     }
 ];
-const relatos=[
-        {
-            nome:'',
-            idade:'',
-            conteudo:''
-        },
-        {
-            nome:'',
-            idade:'',
-            conteudo:''
-        },
-        {
-            nome:'',
-            idade:'',
-            conteudo:''
-        },
-        {
-            nome:'',
-            idade:'',
-            conteudo:''
-        },
+
+const relatos = [
+    {
+        nome: 'Maria',
+        idade: '21 anos',
+        conteudo: 'A Psicoclin superou todas as minhas expectativas! Desde o atendimento na recepção até as sessões com os psicólogos, tudo foi impecável. As instalações são modernas e confortáveis, e os profissionais são extremamente atenciosos e competentes. Recomendo a todos!'
+    },
+    {
+        nome: 'Jonas',
+        idade: '35 anos',
+        conteudo: 'Fiquei muito impressionado com a eficiência e a qualidade do atendimento na Psicoclin. Os psicólogos são altamente especializados e demonstram um verdadeiro compromisso com o bem-estar dos pacientes. Além disso, o tempo de espera foi mínimo, o que é um grande diferencial.'
+    },
+    {
+        nome: 'Tobias',
+        idade: '58 anos',
+        conteudo: 'A melhor clínica de psicologia em que já estive! Os profissionais são muito dedicados e atenciosos, e o ambiente é limpo e organizado. Fui muito bem tratado desde a chegada até o momento de ir embora. Agradeço a toda a equipe pelo excelente serviço prestado.'
+    },
+    {
+        nome: 'Alberto',
+        idade: '73 anos',
+        conteudo: 'Tive uma experiência maravilhosa na Psicoclin. O ambiente é muito acolhedor e a equipe é extremamente qualificada. Fui muito bem atendido e me senti em boas mãos durante todo o processo terapêutico. Com certeza voltarei se precisar de mais apoio psicológico.'
+    },
 ];
-const contatos=[
-        {
-            Email:'',
-            Telefone:'',
-            Horario:''
-        }
+
+const contatos = [
+    {
+        Email: ' Email: Contato@psicoclin.com.br',
+        Telefone: 'Telefone: (21)3030-2838 / Whatsapp: (21)97113-5102',
+        Horario: 'Horario de funcionamento: 8:00 as 20:00'
+    }
 ];
-const info=[
+
+const info = [
     {
         titulo: 'A Psicoclin',
-        conteudo:'A Psicoclin é uma clínica de psicologia localizada na Barra da Tijuca, no Rio de Janeiro. Fundada em 2016, a clínica tem mais de 7 anos de experiência no mercado e é referência na área. Ela está situada no Cittá América, um centro comercial e empresarial.'
+        conteudo: 'A Psicoclin é uma clínica de psicologia localizada na Barra da Tijuca, no Rio de Janeiro. Fundada em 2016, a clínica tem mais de 7 anos de experiência no mercado e é referência na área. Ela está situada no Cittá América, um centro comercial e empresarial.'
     },
     {
         titulo: 'A Equipe',
-        conteudo:'A clínica conta com uma equipe de 4 psicólogos especializados em diversas áreas da psicologia. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades.'
+        conteudo: 'A clínica conta com uma equipe de 4 psicólogos especializados em diversas áreas da psicologia. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades.'
     },
     {
         titulo: 'Compromisso',
-        conteudo:'Os valores da Psicoclin incluem ética, compromisso, respeito e qualidade nos serviços. A equipe se esforça para garantir excelência no atendimento e empatia com os pacientes.'
+        conteudo: 'Os valores da Psicoclin incluem ética, compromisso, respeito e qualidade nos serviços. A equipe se esforça para garantir excelência no atendimento e empatia com os pacientes.'
     }
 ];
 
@@ -152,14 +154,62 @@ defineProps({
                     </div>
                 </div>
                 <div class="row" v-if="activePage === 1">
-                    <div class="col-md-4 offset-md-4 text-center">
-                        <h1>{{ info[1].titulo }}</h1>
-                        <p>{{ info[1].conteudo }}</p>
+                    <div class="col-md-3 text-center">
+                        <h2>{{ relatos[0].nome }}
+                        </h2>
+                        <p>
+                            {{ relatos[0].idade }}
+                        </p>
+                        <p>
+                            {{ relatos[0].conteudo }}
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h2>{{ relatos[1].nome }}
+                        </h2>
+                        <p>
+                            {{ relatos[1].idade }}
+                        </p>
+                        <p>
+                            {{ relatos[1].conteudo }}
+                        </p>
+                       
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h2>{{ relatos[2].nome }}
+                        </h2>
+                        <p>
+                            {{ relatos[2].idade }}
+                        </p>
+                        <p>
+                            {{ relatos[2].conteudo }}
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h2>{{ relatos[3].nome }}
+                        </h2>
+                        <p>
+                            {{ relatos[3].idade }}
+                        </p>
+                        <p>
+                            {{ relatos[3].conteudo }}
+                        </p>
                     </div>
                 </div>
                 <div class="row" v-if="activePage === 2">
-                    <h3>{{ pages[activePage].pageTitle}}</h3>
-                    <p>{{pages[activePage].content}}</p>
+                    <div class="col-md-4">
+                        <h2>Nossos Contatos</h2>
+                        <p>
+                            {{ contatos[0].Email }}
+                        </p>
+                        <p>
+                            {{ contatos[0].Telefone }}
+                        </p>
+                        <p>
+                            {{ contatos[0].Horario }}
+                        </p>
+                       
+                    </div>
                 </div>
             </div>
         </div>
