@@ -35,12 +35,15 @@ function criar()
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
-                        <h2 class="font-semibold text-gray-800">Secretários</h2>
-                        <primary-button @click="criar()"
-                            >Cadastrar</primary-button> 
+                        <h1 class="text-lg font-medium text-gray-900">Secretários</h1>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Consultar informações dos secretários cadastrados
+                        </p>
                     </header>
+                    <primary-button @click="criar()"
+                            >Cadastrar</primary-button>
                     <table class="table-auto w-full">
-                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Nome</div>
@@ -52,7 +55,7 @@ function criar()
                                     <div class="font-semibold text-left">Cep</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left"></div>
+                                    <div class="font-semibold text-left">Funções</div>
                                 </th>
                             </tr>
                         </thead>
@@ -86,12 +89,15 @@ function criar()
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
-                        <h2 class="font-semibold text-gray-800">Psicólogos</h2>
-                        <primary-button @click="criar()"
-                            >Cadastrar</primary-button> 
+                        <h2 class="text-lg font-medium text-gray-900">Psicólogos</h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Consultar informações dos psicólogos cadastrados
+                        </p>
                     </header>
+                    <primary-button @click="criar()"
+                            >Cadastrar</primary-button> 
                     <table class="table-auto w-full">
-                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Nome</div>
@@ -103,7 +109,7 @@ function criar()
                                     <div class="font-semibold text-left">Cep</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left"></div>
+                                    <div class="font-semibold text-left">Funções</div>
                                 </th>
                             </tr>
                         </thead>

@@ -38,6 +38,9 @@ Route::controller(SecretariaController::class)->group(function () {
     Route::put('/secretaria/{user}','update')->name('secretaria.update');
 });
 
+Route::controller(ConsultaController::class)->group(function(){
+    Route::get('/agendamento','create')->name('consulta.agendar');
+});
 
 Route::controller(PsicoController::class)->group(function () {
     Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');

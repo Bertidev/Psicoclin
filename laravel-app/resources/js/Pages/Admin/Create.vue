@@ -105,7 +105,7 @@ const submit = () =>{
                         
                         <div>
                             
-                            <InputLabel for="role" value="Tipo" />
+                            <InputLabel for="role" value="Tipo (1 para secretário 2 para psicólogo)" />
 
                             <TextInput
                                 id="role"

@@ -18,23 +18,32 @@ COMO USAR:
  ->INSTALAR DEPENDENCIAS DO NODE FORA DO CONTAINER
 	npm install
 
-->docker swarm init//inicia o swarm
+->INICIAR O SWARM
+	docker swarm init//inicia o swarm
 
-->docker stack deploy -c docker-compose.yml [nome-do-servico]//cria os containers
+->CRIAR OS CONTAINERS
+	docker stack deploy -c docker-compose.yml [nome-do-servico]
 
-->docker swarm leave --force // sai do swarm caso queira parar de usar nosso programa
+->ENTRAR NO BASH DO CONTAINER (o nome do container deve ser obtido via dockerhub)
+	docker exec -it [nome do container] bash
 
  ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
-	docker exec laravel-electron bash -c "composer update && php artisan key:generate"
+	composer update && php artisan key:generate
 
- ->PARA O BANCO DE DADOS
-	docker exec [nome do container] bash -c "php artisan migrate --seed"
+ ->REALIZAR AS MIGRATES E O SEED DA DATABASE
+	php artisan migrate --seed
 
- ->RODE O SERVER NODE
-	docker exec [nome do container] bash -c "npm install && npm run build"
+ ->INSTALAR DEPENDENCIAS DO NODE E COMPILAR OS ARQUIVOS VUE
+	npm install && npm run build
+
+->SAIR DO  BASH DO CONTAINER
+	exit
 
  ->RODAR O ELECTRON FORA DO CONTAINER
 	npm start
+
+->CASO QUEIRA PARAR DE UTILIZAR NOSSO PROJETO, RODE O SEGUINTE COMANDO NO TERMINAL:
+	docker swarm leave --force
 
 LOGIN ADMIN:
 	guto@gigantesco.com
@@ -58,5 +67,3 @@ LINK LARAVEL:
 LINK PHPMYADMIN(servidor:mysql_db | usuario:root | senha:root):
 	http://localhost:9001
 
-
-Hex code do header: #728360
