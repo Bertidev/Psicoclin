@@ -6,14 +6,13 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
 import { ref } from 'vue';
 
 const activePage = ref(0);
 
 const pages = [
     {
-        link: { text: 'Quem Somos', url: 'index.html' },
+        link: { text: 'Psicoclin', url: 'index.html' },
         pageTitle: 'A Psicoclin',
         content: ''
     },
@@ -28,6 +27,7 @@ const pages = [
         content: 'This is the contact content'
     }
 ];
+
 
 const relatos = [
     {
@@ -56,7 +56,7 @@ const contatos = [
     {
         Email: ' Email: Contato@psicoclin.com.br',
         Telefone: 'Telefone: (21)3030-2838 / Whatsapp: (21)97113-5102',
-        Horario: 'Horario de funcionamento: 8:00 as 20:00'
+        Horario: 'Horario de funcionamento: 8:00 as 18:30'
     }
 ];
 
@@ -93,16 +93,24 @@ defineProps({
 });
 </script>
 
+<style>
+.bold-text {
+    font-weight: bold;
+    font-size: 18px
+}
+</style>
+
 <template>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width">
-        <title></title>
-        <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    </head>
-    <body>
+    <div>
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width">
+            <title>Psicoclin</title>
+            <link rel="icon" href="./images/icone.ico" type="image/x-icon" />
+            <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        </head>
         <div>
             <div class="d-flex justify-content-center" style="background-color: #728360; padding: 1rem 0;">
                 <img src="images/marca.png" alt="Psicoclin" style="width: 25%;">
@@ -110,12 +118,11 @@ defineProps({
             <nav class="navbar navbar-expand-md navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        Psicoclin
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li v-for="(page, index) in pages" class="nav-item" :key="index">
                             <a 
-                                class="nav-link" 
+                                class="nav-link bold-text" 
                                 aria-current="page" 
                                 :href="page.link.url"
                                 :title="`this link goes to the ${page.link.text} page`"
@@ -133,14 +140,14 @@ defineProps({
                         </li>
                     </ul>
                 </div>
-            </nav>   
+            </nav> 
             <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
                 <div class="row" v-if="activePage === 0">
                     <div class="col-md-4 offset-md-4 text-center">
                         <h2>{{ info[0].titulo }}</h2>
                         <p>{{ info[0].conteudo }}</p>
                     </div>
-                    <div class="col-md-12 text-center" v-if="activePage === 0">
+                    <div class="col-md-12 text-center">
                         <div class="row justify-content-center">
                             <div class="col-md-4">
                                 <h2>{{ info[1].titulo }}</h2>
@@ -155,60 +162,32 @@ defineProps({
                 </div>
                 <div class="row" v-if="activePage === 1">
                     <div class="col-md-3 text-center">
-                        <h2>{{ relatos[0].nome }}
-                        </h2>
-                        <p>
-                            {{ relatos[0].idade }}
-                        </p>
-                        <p>
-                            {{ relatos[0].conteudo }}
-                        </p>
+                        <h2>{{ relatos[0].nome }}</h2>
+                        <p>{{ relatos[0].idade }}</p>
+                        <p>{{ relatos[0].conteudo }}</p>
                     </div>
                     <div class="col-md-3 text-center">
-                        <h2>{{ relatos[1].nome }}
-                        </h2>
-                        <p>
-                            {{ relatos[1].idade }}
-                        </p>
-                        <p>
-                            {{ relatos[1].conteudo }}
-                        </p>
-                       
+                        <h2>{{ relatos[1].nome }}</h2>
+                        <p>{{ relatos[1].idade }}</p>
+                        <p>{{ relatos[1].conteudo }}</p>
                     </div>
                     <div class="col-md-3 text-center">
-                        <h2>{{ relatos[2].nome }}
-                        </h2>
-                        <p>
-                            {{ relatos[2].idade }}
-                        </p>
-                        <p>
-                            {{ relatos[2].conteudo }}
-                        </p>
+                        <h2>{{ relatos[2].nome }}</h2>
+                        <p>{{ relatos[2].idade }}</p>
+                        <p>{{ relatos[2].conteudo }}</p>
                     </div>
                     <div class="col-md-3 text-center">
-                        <h2>{{ relatos[3].nome }}
-                        </h2>
-                        <p>
-                            {{ relatos[3].idade }}
-                        </p>
-                        <p>
-                            {{ relatos[3].conteudo }}
-                        </p>
+                        <h2>{{ relatos[3].nome }}</h2>
+                        <p>{{ relatos[3].idade }}</p>
+                        <p>{{ relatos[3].conteudo }}</p>
                     </div>
                 </div>
                 <div class="row" v-if="activePage === 2">
                     <div class="col-md-4">
                         <h2>Nossos Contatos</h2>
-                        <p>
-                            {{ contatos[0].Email }}
-                        </p>
-                        <p>
-                            {{ contatos[0].Telefone }}
-                        </p>
-                        <p>
-                            {{ contatos[0].Horario }}
-                        </p>
-                       
+                        <p>{{ contatos[0].Email }}</p>
+                        <p>{{ contatos[0].Telefone }}</p>
+                        <p>{{ contatos[0].Horario }}</p>
                     </div>
                 </div>
             </div>
@@ -234,5 +213,6 @@ defineProps({
                 &copy; {{ new Date().getFullYear() }} Psicoclin. All rights reserved.
             </div>
         </footer>
-    </body>
+    </div>
 </template>
+
