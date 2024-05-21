@@ -25,7 +25,7 @@ COMO USAR:
 ->docker swarm leave --force // sai do swarm caso queira parar de usar nosso programa
 
  ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
-	docker exec [nome do container] bash -c "composer update && php artisan key:generate"
+	docker exec laravel-electron bash -c "composer update && php artisan key:generate"
 
  ->PARA O BANCO DE DADOS
 	docker exec [nome do container] bash -c "php artisan migrate --seed"
