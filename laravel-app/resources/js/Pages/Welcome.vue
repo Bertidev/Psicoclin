@@ -107,6 +107,7 @@ defineProps({
             <div class="d-flex justify-content-center" style="background-color: #728360; padding: 1rem 0;">
                 <img src="images/marca.png" alt="Psicoclin" style="width: 25%;">
             </div>
+<<<<<<< HEAD
             <nav class="navbar navbar-expand-md navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
@@ -132,6 +133,15 @@ defineProps({
                             </a>
                         </li>
                     </ul>
+=======
+        </nav>   
+        <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
+            <div class="row" v-if="activePage === 0">
+               
+                <div class="col-md-4 offset-md-4 text-center">
+                    <h2>{{ info[0].titulo }}</h2>
+                    <p>{{ info[0].conteudo }}</p>
+>>>>>>> main
                 </div>
             </nav>   
             <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
