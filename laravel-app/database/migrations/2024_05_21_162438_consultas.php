@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('consultas', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('id_paciente');
-            $table->unsignedBigInteger('id_psicologo');
-            $table->foreign('id_paciente')->references('id')->on('users');
-            $table->foreign('id_psicologo')->references('id')->on('users');
+            $table->unsignedBigInteger('paciente_id');
+            $table->unsignedBigInteger('psicologo_id');
+            $table->foreign('paciente_id')->references('id')->on('users');
+            $table->foreign('psicologo_id')->references('id')->on('users');
             $table->date('data');
+            $table->timestamps();
         });
     }
 

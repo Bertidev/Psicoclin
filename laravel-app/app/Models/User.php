@@ -24,6 +24,15 @@ class User extends Authenticatable
         'role',
     ];
 
+    public function consultas_pacientes()
+    {
+        return $this->HasMany(Consultas::class,'paciente_id','id');
+    }
+
+    public function consultas_psicologo()
+    {
+        return $this->HasMany(Consultas::class,'psicologo_id','id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

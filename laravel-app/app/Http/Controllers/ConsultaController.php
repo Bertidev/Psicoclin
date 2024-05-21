@@ -2,21 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Consultas;
 use Inertia\Inertia;
-use Inertia\Response;
-use App\models\User;
-use Illuminate\Support\Facades\Redirect;
 
 class ConsultaController extends Controller
 {
     public function create()
     {
-        return Inertia::render('Paciente/Agendar');
+        $psicologos = User::where('role', '2')->get();
+        return Inertia::render('Paciente/Agendar', compact('psicologos'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        $doctor = User::where('name', $request->name)->where('role', '2')->first();
+        if (!$doctor) {
+            return redirect()->back()->withErrors(['name' => 'Psicólogo não encontrado.']);
+        }
+
+        $consulta = new Consultas();
+        $consulta->psicologo_id = $doctor->id;
+        $consulta->paciente_id = $request->user()->id;
+        $consulta->data = $request->date;
+
+        $consulta->save();
+
+        return redirect()->route('dashboard');
+    }
+
 }

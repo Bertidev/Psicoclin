@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
 use Inertia\Inertia;
@@ -38,8 +40,13 @@ Route::controller(SecretariaController::class)->group(function () {
     Route::put('/secretaria/{user}','update')->name('secretaria.update');
 });
 
-Route::controller(ConsultaController::class)->group(function(){
+Route::controller(PacienteController::class)->group(function () {
+    Route::get('/paciente/dashboard', 'dashboard')->name('paciente.dashboard');
+});
+
+Route::controller(ConsultaController::class)->group(function () {
     Route::get('/agendamento','create')->name('consulta.agendar');
+    Route::post('/agendamento/save', 'store')->name('consulta.save');
 });
 
 Route::controller(PsicoController::class)->group(function () {

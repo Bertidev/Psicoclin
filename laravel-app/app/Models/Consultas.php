@@ -10,8 +10,19 @@ class Consultas extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_paciente',
-        'id_psicologo',
+        'psicologo_id',
+        'paciente_id',
         'data',
     ];
+
+    public function psicologo()
+    {
+        return $this->belongsTo(User::class, 'psicologo_id');
+    }
+
+    public function paciente()
+    {
+        return $this->belongsTo(User::class, 'paciente_id');
+    }
 }
+
