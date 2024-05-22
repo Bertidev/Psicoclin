@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
 use Inertia\Inertia;
@@ -38,6 +40,18 @@ Route::controller(SecretariaController::class)->group(function () {
     Route::put('/secretaria/{user}','update')->name('secretaria.update');
 });
 
+Route::controller(PacienteController::class)->group(function () {
+    Route::get('/paciente/dashboard', 'dashboard')->name('paciente.dashboard');
+    Route::get('/paciente/historico','historico')->name('paciente.historico');
+});
+
+Route::controller(ConsultaController::class)->group(function () {
+    Route::get('/agendamento','create')->name('consulta.agendar');
+    Route::post('/agendamento/save', 'store')->name('consulta.save');
+    Route::delete('/agendamento/cancelar/{id}', 'delete')->name('consulta.delete');
+    Route::get('/agendamento/remarcar/{id}','edit')->name('consulta.edit');
+    Route::put('/agendamento/{id}','update')->name('consulta.update');
+});
 
 Route::controller(PsicoController::class)->group(function () {
     Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');
