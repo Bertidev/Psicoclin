@@ -11,7 +11,7 @@ function proximas(){
     router.get(route('paciente.dashboard'));
 }
 function historico(){
-    router.get(route('consultas.historico'))
+    router.get(route('paciente.historico'))
 }
 </script>
 

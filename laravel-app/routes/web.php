@@ -42,6 +42,7 @@ Route::controller(SecretariaController::class)->group(function () {
 
 Route::controller(PacienteController::class)->group(function () {
     Route::get('/paciente/dashboard', 'dashboard')->name('paciente.dashboard');
+    Route::get('/paciente/historico','historico')->name('paciente.historico');
 });
 
 Route::controller(ConsultaController::class)->group(function () {

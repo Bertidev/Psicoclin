@@ -16,14 +16,26 @@ use Illuminate\Support\Facades\Redirect;
 
 class PacienteController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
+        $user = auth()->user();
         $consultas = Consultas::with('psicologo')
-            ->where('paciente_id', $request->user()->id)
+            ->where('paciente_id', $user->id)
+            ->whereDate('data', '>=', now())
             ->get();
 
         return Inertia::render('Paciente/Menu', ['consultas' => $consultas]);
     }
 
+    public function historico()
+    {
+        $user = auth()->user();
+        $consultas = Consultas::with('psicologo')
+            ->where('paciente_id', $user->id)
+            ->whereDate('data', '<', now())
+            ->get();
+
+        return Inertia::render('Paciente/Historico', ['consultas' => $consultas]);
+    }
     
 }
