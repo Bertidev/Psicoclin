@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Consultas;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class ConsultaController extends Controller
 {
@@ -19,7 +20,7 @@ class ConsultaController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
         ]);
 
         $doctor = User::where('name', $request->name)->where('role', '2')->first();
@@ -37,4 +38,37 @@ class ConsultaController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function delete($id)
+    {
+        $consulta = Consultas::findOrFail($id)->delete();
+
+        return redirect::to('/paciente/dashboard');
+    }
+
+    public function edit($id)
+    {   
+        $consulta = Consultas::findOrFail($id);
+        $psicologos = User::where('role', '2')->get();
+
+        return Inertia::render('Paciente/Edit', [
+            'consulta' => $consulta,
+            'psicologos' => $psicologos
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'psicologo_id' => 'required|exists:users,id',
+            'date' => 'required|date|after_or_equal:today',
+        ]);
+
+        $consulta = Consultas::findOrFail($id);
+        $consulta->psicologo_id = $request->psicologo_id;
+        $consulta->data = $request->date;
+
+        $consulta->save();
+
+        return redirect()->route('paciente.dashboard');
+    }
 }

@@ -48,6 +48,9 @@ Route::controller(PacienteController::class)->group(function () {
 Route::controller(ConsultaController::class)->group(function () {
     Route::get('/agendamento','create')->name('consulta.agendar');
     Route::post('/agendamento/save', 'store')->name('consulta.save');
+    Route::delete('/agendamento/cancelar/{id}', 'delete')->name('consulta.delete');
+    Route::get('/agendamento/remarcar/{id}','edit')->name('consulta.edit');
+    Route::put('/agendamento/{id}','update')->name('consulta.update');
 });
 
 Route::controller(PsicoController::class)->group(function () {

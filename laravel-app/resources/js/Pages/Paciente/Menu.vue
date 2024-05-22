@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { router } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 
@@ -11,7 +13,12 @@ defineProps({
 function agendar() {
     router.get(route('consulta.agendar'))
 }
-
+function cancelar(id){
+    router.delete(route('consulta.delete',id));
+}
+function remarcar(id){
+    router.get(route('consulta.edit',id))
+}
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getUTCDate().toString().padStart(2, '0');
@@ -48,6 +55,9 @@ function formatDate(dateString) {
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Data</div>
                                 </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Opções</div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
@@ -60,6 +70,12 @@ function formatDate(dateString) {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ formatDate(consulta.data) }}</div>
                                 </td>
+                                <SecondaryButton @click="remarcar(consulta.id)"
+                                            >Remarcar</SecondaryButton>
+                                
+
+                                <DangerButton @click="cancelar(consulta.id)"
+                                            >Cancelar</DangerButton>
                             </tr>
                         </tbody>
                     </table>

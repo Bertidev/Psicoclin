@@ -10,6 +10,7 @@ function agendar() {
 function proximas(){
     router.get(route('paciente.dashboard'));
 }
+
 function historico(){
     router.get(route('paciente.historico'))
 }
@@ -57,7 +58,7 @@ function historico(){
                     <header>
                         <h1 class="text-lg font-medium text-gray-900">Histórico de consultas</h1>
                         <p class="mt-1 text-sm text-gray-600">
-                            Agende consultas com um profissional da nossa clínica de sua escolha.
+                            Acesse seu histórico de consultas
                         </p>
                         <PrimaryButton @click="historico">Acessar</PrimaryButton>
                     </header>
