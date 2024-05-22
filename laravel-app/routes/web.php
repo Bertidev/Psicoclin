@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
+use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -17,6 +18,9 @@ Route::get('/', function () {
         'foo' => 'bar'
     ]);
 });
+
+Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
+Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
