@@ -56,6 +56,9 @@ function formatDate(dateString) {
                                     <div class="font-semibold text-left">Data</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Horário</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Opções</div>
                                 </th>
                             </tr>
@@ -69,6 +72,9 @@ function formatDate(dateString) {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ formatDate(consulta.data) }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">{{ consulta.hora }}</div>
                                 </td>
                                 <SecondaryButton @click="remarcar(consulta.id)"
                                             >Remarcar</SecondaryButton>

@@ -16,6 +16,7 @@ const props = defineProps({
 const form = useForm({
     psicologo_id: props.consulta.psicologo_id,
     date: props.consulta.data,
+    time: props.consulta.hora,
 });
 
 
@@ -98,6 +99,21 @@ const submit = () => {
                         />
 
                         <InputError class="mt-2" :message="form.errors.date" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="time" value="Horário da consulta" />
+
+                        <TextInput
+                            id="time"
+                            type="time"
+                            class="mt-1 block w-full"
+                            v-model="form.time"
+                            required
+                            autocomplete="time"
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.time" />
                     </div>
 
                     <PrimaryButton type="submit">Salvar Alterações</PrimaryButton>

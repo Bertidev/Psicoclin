@@ -13,6 +13,7 @@ class Consultas extends Model
         'psicologo_id',
         'paciente_id',
         'data',
+        'hora',
     ];
 
     public function psicologo()

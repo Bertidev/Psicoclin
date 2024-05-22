@@ -11,6 +11,7 @@ defineProps({ psicologos: Object });
 const form = useForm({
     name: '',
     date: '',
+    time: '',
 });
 
 const submit = () => {
@@ -67,6 +68,9 @@ const submit = () => {
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <header class="px-5 py-4 border-b border-gray-100">
                     <h1 class="text-lg font-medium text-gray-900">Agendar sua consulta</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                            Escolha o nome do profissional, data e horário que deseja ser atendido
+                        </p>
                 </header>
                 <form @submit.prevent="submit" class="mt-6 space-y-6">
                     <div>
@@ -98,6 +102,21 @@ const submit = () => {
                         />
 
                         <InputError class="mt-2" :message="form.errors.date" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="time" value="Horário da consulta" />
+
+                        <TextInput
+                            id="time"
+                            type="time"
+                            class="mt-1 block w-full"
+                            v-model="form.time"
+                            required
+                            autocomplete="time"
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.time" />
                     </div>
 
                     <PrimaryButton type="submit">Agendar Consulta</PrimaryButton>

@@ -48,6 +48,9 @@ function formatDate(dateString) {
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Data</div>
                                 </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Horário</div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
@@ -59,6 +62,9 @@ function formatDate(dateString) {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ formatDate(consulta.data) }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">{{ formatDate(consulta.hora) }}</div>
                                 </td>
                             </tr>
                         </tbody>

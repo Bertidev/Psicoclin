@@ -21,6 +21,7 @@ class ConsultaController extends Controller
         $request->validate([
             'name' => 'required|string',
             'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|date_format:H:i',
         ]);
 
         $doctor = User::where('name', $request->name)->where('role', '2')->first();
@@ -32,11 +33,13 @@ class ConsultaController extends Controller
         $consulta->psicologo_id = $doctor->id;
         $consulta->paciente_id = $request->user()->id;
         $consulta->data = $request->date;
+        $consulta->hora = $request->time;
 
         $consulta->save();
 
         return redirect()->route('dashboard');
     }
+
 
     public function delete($id)
     {
@@ -61,10 +64,12 @@ class ConsultaController extends Controller
         $request->validate([
             'psicologo_id' => 'required|exists:users,id',
             'date' => 'required|date|after_or_equal:today',
+            'time'=> 'required|date_format:H:i'
         ]);
 
         $consulta = Consultas::findOrFail($id);
         $consulta->psicologo_id = $request->psicologo_id;
+        $consulta->hora =$request->time;
         $consulta->data = $request->date;
 
         $consulta->save();

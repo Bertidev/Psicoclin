@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('paciente_id')->references('id')->on('users');
             $table->foreign('psicologo_id')->references('id')->on('users');
             $table->date('data');
+            $table->time('hora');
             $table->timestamps();
         });
     }
