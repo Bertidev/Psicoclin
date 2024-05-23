@@ -19,8 +19,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
-Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
+Route::post('/contact',[ContactController::class,'store'])->name('contact.send');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

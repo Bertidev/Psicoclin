@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   laravel_app:
-    image: diphinius/laravel-app:latest
+    image: diphinius/mail:latest
     container_name: laravel-electron
     build: .
     volumes:

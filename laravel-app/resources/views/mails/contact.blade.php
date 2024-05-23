@@ -1,2 +1,2 @@
-<h2>Email Recebido </h2>
+<h2>{{$data ['subject']}} </h2>
 <p>{{ $data['message'] }}</p>

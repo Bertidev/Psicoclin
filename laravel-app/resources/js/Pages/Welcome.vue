@@ -18,7 +18,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(route('contact.send'), {
         onFinish: () => {
             form.reset('nome');
             form.reset('email');
@@ -73,7 +73,7 @@ const relatos = [
 const contatos = [
     {
         Email: ' Email: Contato@psicoclin.com.br',
-        Telefone: 'Telefone: (21)3030-2838 / Whatsapp: (21)97113-5102',
+        Telefone: 'Telefone: (21)4002-8922' ,
         Horario: 'Horario de funcionamento: 8:00 as 18:30'
     }
 ];
@@ -228,7 +228,11 @@ defineProps({
                                 <textarea v-model="form.mensagem" class="form-control" id="mensagem" rows="5" required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                Enviar
+                            </button>
+
+                            <p></p>
                         </form>
                     </div>
                 </div>
