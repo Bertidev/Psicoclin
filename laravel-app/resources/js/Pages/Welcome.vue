@@ -19,11 +19,8 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('contact.send'), {
-        onFinish: () => {
-            form.reset('nome');
-            form.reset('email');
-            form.reset('assunto');
-            form.reset('mensagem');
+        onSuccess: () => {
+            form.reset();
         }
     });
 };
@@ -207,6 +204,11 @@ defineProps({
                         <p>{{ contatos[0].Telefone }}</p>
                         <p>{{ contatos[0].Horario }}</p>
                         <h2>Fale Conosco</h2>
+
+                        <div v-if="$page.props.flash.confirmation" class="alert alert-success" role="alert">
+                        {{ $page.props.flash.confirmation }}
+                        </div>
+
                         <form @submit.prevent="submit">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Seu Nome</label>

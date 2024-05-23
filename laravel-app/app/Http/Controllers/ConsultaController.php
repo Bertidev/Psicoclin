@@ -21,7 +21,7 @@ class ConsultaController extends Controller
         $request->validate([
             'name' => 'required|string',
             'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',
+            'time' => 'required|date_format:H:i|before:18:31|after:7:59',
         ]);
 
         $doctor = User::where('name', $request->name)->where('role', '2')->first();
@@ -64,7 +64,7 @@ class ConsultaController extends Controller
         $request->validate([
             'psicologo_id' => 'required|exists:users,id',
             'date' => 'required|date|after_or_equal:today',
-            'time'=> 'required|date_format:H:i'
+            'time'=> 'required|date_format:H:i|before:18:31|after:7:59'
         ]);
 
         $consulta = Consultas::findOrFail($id);

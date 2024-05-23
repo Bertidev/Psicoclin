@@ -64,7 +64,7 @@ function formatDate(dateString) {
                                     <div class="text-left">{{ formatDate(consulta.data) }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">{{ formatDate(consulta.hora) }}</div>
+                                    <div class="text-left">{{ consulta.hora }}</div>
                                 </td>
                             </tr>
                         </tbody>

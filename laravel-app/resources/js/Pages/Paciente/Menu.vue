@@ -44,6 +44,7 @@ function formatDate(dateString) {
                         <p class="mt-1 text-sm text-gray-600">
                             Consultar informações sobre suas consultas
                         </p>
+                        <p></p>
                     </header>
                     <PrimaryButton @click="agendar">Agendar</PrimaryButton>
                     <table class="table-auto w-full">

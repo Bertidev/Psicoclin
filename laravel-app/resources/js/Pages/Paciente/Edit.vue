@@ -12,6 +12,21 @@ const props = defineProps({
     consulta: Object,
 });
 
+const generateTimeSlots = () => {
+    const start = 8 * 60; // 8:00 in minutes
+    const end = 17 * 60 + 45; // 18:30 in minutes
+    const interval = 45; // 45 minutes
+
+    let times = [];
+    for (let minutes = start; minutes <= end; minutes += interval) {
+        let hours = Math.floor(minutes / 60);
+        let mins = minutes % 60;
+        times.push(`${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`);
+    }
+    return times;
+};
+
+const timeSlots = generateTimeSlots();
 
 const form = useForm({
     psicologo_id: props.consulta.psicologo_id,
@@ -78,7 +93,7 @@ const submit = () => {
                 <form @submit.prevent="submit" class="mt-6 space-y-6">
                     <div>
                         <InputLabel for="psicologo_id" value="Nome do profissional desejado" />
-                        <select id="psicologo_id" v-model="form.psicologo_id" class="mt-1 block w-full">
+                        <select id="psicologo_id" v-model="form.psicologo_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                             <option v-for="psicologo in psicologos" :key="psicologo.id" :value="psicologo.id">
                                 {{ psicologo.name }}
                             </option>
@@ -104,14 +119,17 @@ const submit = () => {
                     <div>
                         <InputLabel for="time" value="Horário da consulta" />
 
-                        <TextInput
+                        <select
                             id="time"
-                            type="time"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                             v-model="form.time"
                             required
                             autocomplete="time"
-                        />
+                        >
+                            <option v-for="time in timeSlots" :key="time" :value="time">
+                                {{ time }}
+                            </option>
+                        </select>
 
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>

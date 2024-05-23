@@ -69,5 +69,14 @@ class DatabaseSeeder extends Seeder
                 'role' => '3',
             ],
         ]);
+
+        DB::table('consultas')->insert([
+            [
+                'paciente_id' =>  '4',
+                'psicologo_id' => '1',
+                'data'=>'2024-05-21',
+                'hora' => '12:00:00',
+            ],
+        ]);
     }
 }

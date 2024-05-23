@@ -17,6 +17,7 @@ class ContactController extends Controller
             'subject'=> $request->input('assunto'),
             'message'=> $request->input('mensagem'),
         ]));
-        var_dump('email sent');
+
+        return redirect()->back()->with('confirmation', 'Email enviado com sucesso! Entraremos em contato em breve.');
     }
 }
