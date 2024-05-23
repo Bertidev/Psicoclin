@@ -8,6 +8,7 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PsicoController;
 use App\Http\Controllers\AdmController;
+use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -19,6 +20,8 @@ Route::get('/', function () {
         'foo' => 'bar'
     ]);
 });
+
+Route::post('/contact',[ContactController::class,'store'])->name('contact.send');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
