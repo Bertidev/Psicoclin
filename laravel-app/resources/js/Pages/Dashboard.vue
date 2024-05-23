@@ -31,7 +31,9 @@ function historico(){
                         <p class="mt-1 text-sm text-gray-600">
                             Agende consultas com um profissional da nossa clínica de sua escolha.
                         </p>
+                        <div class="flex items-left pt-4">
                         <PrimaryButton @click="agendar">Agendar</PrimaryButton>
+                        </div>
                     </header>
                 </div>
             </div>
@@ -45,7 +47,9 @@ function historico(){
                         <p class="mt-1 text-sm text-gray-600">
                             Consulte informações sobre suas próximas consultas.
                         </p>
+                        <div class="flex items-left pt-4">
                         <PrimaryButton @click="proximas">Detalhes</PrimaryButton>
+                        </div>
                     </header>
                 </div>
             </div>
@@ -59,7 +63,9 @@ function historico(){
                         <p class="mt-1 text-sm text-gray-600">
                             Acesse seu histórico de consultas
                         </p>
+                        <div class="flex items-left pt-4">
                         <PrimaryButton @click="historico">Acessar</PrimaryButton>
+                        </div>
                     </header>
                 </div>
             </div>

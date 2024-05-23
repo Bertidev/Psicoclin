@@ -2,9 +2,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import OtherButton from '@/Components/OtherButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 
 defineProps({ psicologos: Object });
 
@@ -34,6 +36,11 @@ const timeSlots = generateTimeSlots();
 const submit = () => {
     form.post(route('consulta.save'));
 };
+
+function voltar(){
+    router.get(route('dashboard'));
+};
+
 </script>
 
 <template>
@@ -138,8 +145,10 @@ const submit = () => {
 
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
-
+                    <div class="flex items-center gap-4">
                     <PrimaryButton type="submit">Agendar Consulta</PrimaryButton>
+                    <OtherButton @click="voltar()">Voltar</OtherButton>
+                    </div>
                 </form>
             </div>
         </div>

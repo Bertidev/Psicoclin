@@ -2,9 +2,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import OtherButton from '@/Components/OtherButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 
 
 const props = defineProps({
@@ -38,6 +40,12 @@ const form = useForm({
 const submit = () => {
     form.put(route('consulta.update', { id: props.consulta.id }));
 };
+
+function voltar(){
+    router.get(route('dashboard'));
+};
+
+
 </script>
 
 <template>
@@ -133,8 +141,9 @@ const submit = () => {
 
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
-
+                    
                     <PrimaryButton type="submit">Salvar Alterações</PrimaryButton>
+                    <OtherButton @click="voltar()">Voltar</OtherButton>
                 </form>
             </div>
         </div>

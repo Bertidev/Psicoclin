@@ -39,9 +39,11 @@ function criar()
                         <p class="mt-1 text-sm text-gray-600">
                             Consultar informações dos secretários cadastrados
                         </p>
-                    </header>
-                    <primary-button @click="criar()"
+                        <div class="flex items-left pt-3">
+                        <primary-button @click="criar()"
                             >Cadastrar</primary-button>
+                        </div>
+                    </header>
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
@@ -73,15 +75,15 @@ function criar()
                                 <div class="text-left font-medium">{{secretario.cep}}</div>
                             </td>
                             <td>
-                                
+                                <div class="flex items-center gap-4">
                                 <SecondaryButton @click="editar(secretario.id)"
                                             >Editar</SecondaryButton>
                                 
 
                                 <DangerButton @click="excluir(secretario.id)"
                                             >Excluir</DangerButton>
-                                
-                                </td>
+                                </div>
+                            </td>
                             </tr>
                         </tbody>
                     </table>
@@ -93,9 +95,11 @@ function criar()
                         <p class="mt-1 text-sm text-gray-600">
                             Consultar informações dos psicólogos cadastrados
                         </p>
+                        <div class="flex items-left pt-3">
+                        <primary-button @click="criar()"
+                            >Cadastrar</primary-button>
+                        </div>
                     </header>
-                    <primary-button @click="criar()"
-                            >Cadastrar</primary-button> 
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
@@ -127,14 +131,14 @@ function criar()
                                 <div class="text-left font-medium">{{psicologo.cep}}</div>
                             </td>
                             <td>
-                                
+                                <div class="flex items-center gap-4">
                                 <SecondaryButton @click="editar(psicologo.id)"
                                             >Editar</SecondaryButton>
                                 
 
                                 <DangerButton @click="excluir(psicologo.id)"
                                             >Excluir</DangerButton>
-                                
+                                </div>
                                 </td>
                             </tr>
                         </tbody>

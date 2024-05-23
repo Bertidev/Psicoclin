@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import OtherButton from '@/Components/OtherButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
@@ -19,6 +20,11 @@ const form = useForm({
 function send(id) {
     router.put('/secretaria/' + id, form);
 }
+
+function voltar(){
+    router.get(route('secretaria.dashboard'));
+};
+
 </script>
 
 <template>
@@ -153,7 +159,7 @@ function send(id) {
 
                         <div class="flex items-center gap-4">
                             <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-
+                            <OtherButton @click="voltar()">Voltar</OtherButton>
                             <Transition
                                 enter-active-class="transition ease-in-out"
                                 enter-from-class="opacity-0"

@@ -37,11 +37,16 @@ function criar()
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Pacientes</h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Consultar informações de pacientes cadastrados na clinica
+                        </p>
+                        <div class="flex items-left pt-3">
                         <primary-button @click="criar()"
                             >Cadastrar</primary-button> 
+                        </div>
                     </header>
                     <table class="table-auto w-full">
-                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Nome</div>
@@ -71,14 +76,14 @@ function criar()
                                 <div class="text-left font-medium">{{paciente.cep}}</div>
                             </td>
                             <td>
-                                
+                            <div class="flex items-center gap-4">
                                 <SecondaryButton @click="editar(paciente.id)"
                                             >Editar</SecondaryButton>
                                 
 
                                 <DangerButton @click="excluir(paciente.id)"
                                             >Excluir</DangerButton>
-                                
+                            </div>
                                 </td>
                             </tr>
                         </tbody>

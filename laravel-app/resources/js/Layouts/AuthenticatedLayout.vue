@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <img src="images/logo.png" alt="Logo" style="width: 20%;">
+                                <img src="/images/logo.png" alt="Logo" style="width: 20%;">
                             </div>
 
                             <!-- Navigation Links -->

@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import OtherButton from '@/Components/OtherButton.vue';
 import { router } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 
@@ -26,6 +27,12 @@ function formatDate(dateString) {
     const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
 }
+
+function voltar(){
+    router.get(route('dashboard'));
+};
+
+
 </script>
 
 <template>
@@ -46,7 +53,10 @@ function formatDate(dateString) {
                         </p>
                         <p></p>
                     </header>
+                    <div class="flex items-left px-5 py-4 gap-4">
                     <PrimaryButton @click="agendar">Agendar</PrimaryButton>
+                    <OtherButton @click="voltar()">Voltar</OtherButton>
+                    </div>
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
                             <tr>
