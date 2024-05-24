@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
@@ -12,12 +11,11 @@ class PsicoController extends Controller
 {
     public function dashboard()
     {
-        
         $psicologoId = auth()->user()->id; 
 
-        $consultas = Consultas::with('paciente') 
+        $consultas = Consultas::with('paciente')
             ->where('psicologo_id', $psicologoId)
-            ->whereDate('data', '>=',now())
+            ->whereDate('data', '>=', now())
             ->get();
 
         $consultas_hoje = Consultas::with('paciente')
@@ -29,5 +27,30 @@ class PsicoController extends Controller
             'consultas' => $consultas, 
             'consultas_hoje' => $consultas_hoje,
         ]);
+    }
+
+    public function read($id)
+    {
+        $consulta = Consultas::with('paciente')->findOrFail($id);
+        $paciente = $consulta->paciente; 
+
+        return Inertia::render('Psicologo/Read', [
+            'consulta' => $consulta,
+            'paciente' => $paciente,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'cep' => 'required|string|max:10',
+        ]);
+
+        $paciente = User::findOrFail($id);
+        $paciente->update($request->only('name', 'email', 'cep'));
+
+        return redirect()->back()->with('success', 'Informações do paciente atualizadas com sucesso.');
     }
 }

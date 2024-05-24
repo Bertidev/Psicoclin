@@ -58,6 +58,8 @@ Route::controller(ConsultaController::class)->group(function () {
 
 Route::controller(PsicoController::class)->group(function () {
     Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');
+    route::get('psicologo/read/{id}','read')->name('psicologo.read');
+    Route::put('/psicologo/edit/{id}','update')->name('psicologo.update');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 

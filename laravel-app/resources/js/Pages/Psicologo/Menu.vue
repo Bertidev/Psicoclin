@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head,router } from '@inertiajs/vue3';
 
 defineProps({
     consultas: Array,
@@ -17,6 +17,11 @@ function formatDate(dateString) {
     const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
 }
+
+function ler(id) {
+    router.get(route('psicologo.read',id))
+}
+
 </script>
 
 <template>
@@ -108,7 +113,7 @@ function formatDate(dateString) {
                                 </td>
                                 <td>
                                 <div class="flex items-center gap-4">
-                                 <PrimaryButton @click="editar()">Detalhes</PrimaryButton>
+                                 <PrimaryButton @click="ler(consulta_hoje.id)">Detalhes</PrimaryButton>
                                 </div>
                                 </td>
                             </tr>
