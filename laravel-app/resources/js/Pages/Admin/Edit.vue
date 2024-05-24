@@ -157,8 +157,8 @@ function send(id) {
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
                             <OtherButton @click="voltar()">Voltar</OtherButton>
+                            <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
 
                             <Transition
                                 enter-active-class="transition ease-in-out"

@@ -45,8 +45,9 @@ function voltar(){
                         </p>
                     </header>
                     <div class="flex items-left px-5 py-4 gap-4">
-                    <PrimaryButton @click="agendar">Agendar</PrimaryButton>
                     <OtherButton @click="voltar()">Voltar</OtherButton>
+                    <PrimaryButton @click="agendar">Agendar</PrimaryButton>
+                    
                     </div>
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">

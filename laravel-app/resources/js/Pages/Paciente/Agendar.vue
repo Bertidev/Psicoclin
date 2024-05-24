@@ -146,8 +146,8 @@ function voltar(){
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
                     <div class="flex items-center gap-4">
-                    <PrimaryButton type="submit">Agendar Consulta</PrimaryButton>
                     <OtherButton @click="voltar()">Voltar</OtherButton>
+                    <PrimaryButton type="submit">Agendar Consulta</PrimaryButton>
                     </div>
                 </form>
             </div>
