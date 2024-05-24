@@ -3,19 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Inertia\Response;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use App\Models\Consultas;
 
 class PsicoController extends Controller
 {
     public function dashboard()
     {
-        return Inertia::render('Psicologo/Menu');
+        
+        $psicologoId = auth()->user()->id; 
+
+        $consultas = Consultas::with('paciente') 
+            ->where('psicologo_id', $psicologoId)
+            ->whereDate('data', '>=',now())
+            ->get();
+
+        $consultas_hoje = Consultas::with('paciente')
+            ->where('psicologo_id', $psicologoId)
+            ->whereDate('data', '=', now())
+            ->get();
+
+        return Inertia::render('Psicologo/Menu', [
+            'consultas' => $consultas, 
+            'consultas_hoje' => $consultas_hoje,
+        ]);
     }
 }
