@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class notas extends Model
+class Notas extends Model
 {
     use HasFactory;
 
@@ -17,11 +17,11 @@ class notas extends Model
 
     public function psicologo()
     {
-        return $this = belongsTo(Users::class, 'psicologo');
+        return $this->belongsTo(User::class, 'psicologo');
     }
 
     public function paciente()
     {
-        return $this = belongsTo(Users::class,'paciente');
+        return $this->belongsTo(User::class, 'paciente');
     }
 }

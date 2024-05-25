@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Consultas;
+use App\Models\Notas;
 
 class PsicoController extends Controller
 {
@@ -53,4 +54,20 @@ class PsicoController extends Controller
 
         return redirect()->back()->with('success', 'Informações do paciente atualizadas com sucesso.');
     }
+
+    public function note(Request $request, $id)
+    {
+        $request->validate([
+            'notas' => 'required|string|max:1000',
+        ]);
+
+        $nota = new Notas();
+        $nota->psicologo = $request->user()->id;
+        $nota->paciente = $id;
+        $nota->nota = $request->notas;
+        $nota->save();
+
+        return redirect()->back()->with('success', 'Nota adicionada com sucesso.');
+    }
+
 }

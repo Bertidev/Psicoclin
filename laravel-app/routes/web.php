@@ -60,6 +60,7 @@ Route::controller(PsicoController::class)->group(function () {
     Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');
     route::get('psicologo/read/{id}','read')->name('psicologo.read');
     Route::put('/psicologo/edit/{id}','update')->name('psicologo.update');
+    Route::post('/psicologo/note/{id}','note')->name('note.add');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 

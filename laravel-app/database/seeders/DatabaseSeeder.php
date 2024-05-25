@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 
 class DatabaseSeeder extends Seeder
@@ -35,10 +36,6 @@ class DatabaseSeeder extends Seeder
                 'cep'=>'13033195',
                 'role' => '1',
             ],
-        ]);
-
-        DB::table('users')->insert([
-            //secretario
             [
                 'name' =>  'pedro',
                 'email' => 'pedro@pedro.com',
@@ -47,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 'role' => '1',
             ],
         ]);
+
 
         DB::table('users')->insert([
             //paciente
@@ -60,7 +58,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            //paciente
+            //admin
             [
                 'name' =>  'Guto',
                 'email' => 'guto@gigantesco.com',
@@ -70,12 +68,40 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        $today = Carbon::today();
+        $yesterday = Carbon::yesterday();
+        $tomorrow = Carbon::tomorrow();
+
         DB::table('consultas')->insert([
             [
                 'paciente_id' =>  '4',
                 'psicologo_id' => '1',
-                'data'=>'2024-05-21',
-                'hora' => '12:00:00',
+                'data'=>$yesterday->format('Y-m-d'),
+                'hora' => '12:30:00',
+            ],
+            [
+                'paciente_id' =>  '4',
+                'psicologo_id' => '1',
+                'data'=>$today->format('Y-m-d'),
+                'hora' => '8:00:00',
+            ],
+            [
+                'paciente_id' =>  '4',
+                'psicologo_id' => '1',
+                'data'=>$today->format('Y-m-d'),
+                'hora' => '15:30:00',
+            ],
+            [
+                'paciente_id' =>  '4',
+                'psicologo_id' => '1',
+                'data'=>$tomorrow->format('Y-m-d'),
+                'hora' => '9:30:00',
+            ],
+            [
+                'paciente_id' =>  '4',
+                'psicologo_id' => '1',
+                'data'=>$tomorrow->format('Y-m-d'),
+                'hora' => '17:45:00',
             ],
         ]);
     }

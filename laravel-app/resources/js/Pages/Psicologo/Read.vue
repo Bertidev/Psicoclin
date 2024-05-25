@@ -17,7 +17,7 @@ const form = useForm({
     name: props.paciente.name,
     email: props.paciente.email,
     cep: props.paciente.cep,
-    notas:'',
+    notas: '',
 });
 
 function voltar() {
@@ -28,10 +28,10 @@ function updatePaciente() {
     form.put(route('psicologo.update', props.paciente.id));
 }
 
-const submit = () => {
-    form.post(route('note.add'), {
+const note = () => {
+    form.post(route('note.add', props.paciente.id), {
         onSuccess: () => {
-            form.reset();
+            form.reset('notas');
         }
     });
 };
@@ -98,7 +98,6 @@ const submit = () => {
 
                         <div>
                             <InputLabel for="rua" value="Rua" />
-
                             <TextInput
                                 id="rua"
                                 type="text"
@@ -108,7 +107,6 @@ const submit = () => {
 
                         <div>
                             <InputLabel for="bairro" value="Bairro" />
-
                             <TextInput
                                 id="bairro"
                                 type="text"
@@ -118,7 +116,6 @@ const submit = () => {
 
                         <div>
                             <InputLabel for="cidade" value="Cidade" />
-
                             <TextInput
                                 id="cidade"
                                 type="text"
@@ -128,7 +125,6 @@ const submit = () => {
 
                         <div>
                             <InputLabel for="uf" value="Estado" />
-
                             <TextInput
                                 id="uf"
                                 type="text"
@@ -163,20 +159,20 @@ const submit = () => {
                         </p>
                     </header>
                     <form @submit.prevent="note">
-                    <div class="mb-3">
-                        <textarea v-model="form.mensagem" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" id="mensagem" rows="5" required></textarea>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-                    </div>
-                    <Transition
-                                enter-active-class="transition ease-in-out"
-                                enter-from-class="opacity-0"
-                                leave-active-class="transition ease-in-out"
-                                leave-to-class="opacity-0"
-                            >
-                                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Nota adicionada.</p>
-                    </Transition>
+                        <div class="mb-3">
+                            <textarea v-model="form.notas" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" id="mensagem" rows="5" required></textarea>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
+                        </div>
+                        <Transition
+                            enter-active-class="transition ease-in-out"
+                            enter-from-class="opacity-0"
+                            leave-active-class="transition ease-in-out"
+                            leave-to-class="opacity-0"
+                        >
+                            <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Nota adicionada.</p>
+                        </Transition>
                     </form>
                 </div>
             </div>
