@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('notas', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('paciente');
+            $table->unsignedBigInteger('consulta');
             $table->unsignedBigInteger('psicologo');
-            $table->foreign('paciente')->references('id')->on('users');
+            $table->foreign('consulta')->references('id')->on('consultas');
             $table->foreign('psicologo')->references('id')->on('users');
             $table->text('nota');
             $table->timestamps();

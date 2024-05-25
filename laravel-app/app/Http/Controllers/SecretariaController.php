@@ -41,14 +41,14 @@ class SecretariaController extends Controller
 
         User::create($validated);
 
-        return redirect(route('secretaria.dashboard'));
+        return redirect(route('secretaria.dashboard'))->with('confirmation', 'Paciente cadastrado com sucesso.');
     }
 
     public function delete($id)
     {
         $user = User::findOrFail($id)->delete();
         
-        return redirect::to('/secretaria/dashboard');
+        return redirect::to('/secretaria/dashboard')->with('confirmation', 'Paciente deletado com sucesso');
     }
 
     public function edit(User $user)
@@ -69,7 +69,7 @@ class SecretariaController extends Controller
 
         $user->update($validated);
 
-        return redirect(route('secretaria.dashboard'));
+        return redirect(route('secretaria.dashboard'))->with('confirmation', 'Alteração realizada com sucesso.');
     }
 
 }

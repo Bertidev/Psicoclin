@@ -40,14 +40,14 @@ class AdmController extends Controller
 
         User::create($validated);
 
-        return redirect(route('adm.dashboard'));
+        return redirect(route('adm.dashboard'))->with('confirmation', 'Cadastro realizado com sucesso.');
     }
 
     public function delete($id)
     {
         $user = User::findOrFail($id)->delete();
 
-        return Redirect::to('/adm/dashboard');
+        return Redirect::to('/adm/dashboard')->with('confirmation', 'Usuário deletado com sucesso.');
     }
 
     public function edit(User $user)
@@ -68,6 +68,6 @@ class AdmController extends Controller
 
         $user->update($validated);
 
-        return redirect(route('adm.dashboard'));
+        return redirect(route('adm.dashboard'))->with('confirmation', 'Alteração realizada com sucesso.');
     }
 }

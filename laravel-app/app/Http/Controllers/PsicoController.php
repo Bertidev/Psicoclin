@@ -33,11 +33,13 @@ class PsicoController extends Controller
     public function read($id)
     {
         $consulta = Consultas::with('paciente')->findOrFail($id);
-        $paciente = $consulta->paciente; 
+        $paciente = $consulta->paciente;
+        $notas = Notas::where('consulta', $id)->get(); // Carregar todas as notas relacionadas à consulta
 
         return Inertia::render('Psicologo/Read', [
             'consulta' => $consulta,
             'paciente' => $paciente,
+            'notas' => $notas,
         ]);
     }
 
@@ -52,7 +54,7 @@ class PsicoController extends Controller
         $paciente = User::findOrFail($id);
         $paciente->update($request->only('name', 'email', 'cep'));
 
-        return redirect()->back()->with('success', 'Informações do paciente atualizadas com sucesso.');
+        return redirect()->back()->with('confirmation', 'Informações do paciente atualizadas com sucesso.');
     }
 
     public function note(Request $request, $id)
@@ -63,11 +65,18 @@ class PsicoController extends Controller
 
         $nota = new Notas();
         $nota->psicologo = $request->user()->id;
-        $nota->paciente = $id;
+        $nota->consulta = $id;
         $nota->nota = $request->notas;
         $nota->save();
 
-        return redirect()->back()->with('success', 'Nota adicionada com sucesso.');
+        return redirect()->back()->with('confirmation', 'Nota adicionada com sucesso.');
     }
 
+    public function deleteNote($id)
+    {
+        $nota = Notas::findOrFail($id);
+        $nota->delete();
+
+        return redirect()->back()->with('confirmation', 'Nota apagada com sucesso.');
+    }
 }

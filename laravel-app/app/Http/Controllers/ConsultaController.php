@@ -37,7 +37,7 @@ class ConsultaController extends Controller
 
         $consulta->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('confirmation', 'Consulta agendada com sucesso.');
     }
 
 
@@ -45,7 +45,7 @@ class ConsultaController extends Controller
     {
         $consulta = Consultas::findOrFail($id)->delete();
 
-        return redirect::to('/paciente/dashboard');
+        return redirect::to('/paciente/dashboard')->with('confirmation', 'Consulta cancelada com sucesso.');
     }
 
     public function edit($id)
@@ -74,6 +74,6 @@ class ConsultaController extends Controller
 
         $consulta->save();
 
-        return redirect()->route('paciente.dashboard');
+        return redirect()->route('paciente.dashboard')->with('confirmation', 'Consulta remarcada com sucesso');
     }
 }

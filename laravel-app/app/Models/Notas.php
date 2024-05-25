@@ -11,7 +11,7 @@ class Notas extends Model
 
     protected $fillable = [
         'psicologo',
-        'paciente',
+        'consulta',
         'nota',
     ];
 
@@ -20,8 +20,8 @@ class Notas extends Model
         return $this->belongsTo(User::class, 'psicologo');
     }
 
-    public function paciente()
+    public function consulta()
     {
-        return $this->belongsTo(User::class, 'paciente');
+        return $this->belongsTo(Consultas::class, 'consulta');
     }
 }

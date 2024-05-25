@@ -11,6 +11,7 @@ import { router } from '@inertiajs/vue3';
 const props = defineProps({
     paciente: Object,
     consulta: Object,
+    notas: Array,
 });
 
 const form = useForm({
@@ -29,13 +30,16 @@ function updatePaciente() {
 }
 
 const note = () => {
-    form.post(route('note.add', props.paciente.id), {
+    form.post(route('note.add', props.consulta.id), {
         onSuccess: () => {
             form.reset('notas');
         }
     });
 };
 
+const deleteNote = (id) => {
+    router.delete(route('note.delete', id));
+};
 </script>
 
 <template>
@@ -45,9 +49,17 @@ const note = () => {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detalhes sobre sua consulta</h2>
         </template>
-
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0">
+                    <p v-if="$page.props.flash.confirmation" class="p-4 mb-4 text-sm text-green-700 bg-green-100 border border-green-400 rounded">
+                        {{ $page.props.flash.confirmation }}</p>
+                </Transition>
+                
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Informações do paciente</h2>
@@ -135,15 +147,6 @@ const note = () => {
                         <div class="flex items-center gap-4">
                             <OtherButton @click="voltar">Voltar</OtherButton>
                             <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-
-                            <Transition
-                                enter-active-class="transition ease-in-out"
-                                enter-from-class="opacity-0"
-                                leave-active-class="transition ease-in-out"
-                                leave-to-class="opacity-0"
-                            >
-                                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Salvo.</p>
-                            </Transition>
                         </div>
                     </form>
                 </div>
@@ -158,21 +161,25 @@ const note = () => {
                             Adicione comentários, notas, ou informações adicionais a respeito de seu atendimento
                         </p>
                     </header>
-                    <form @submit.prevent="note">
+
+                    <div v-if="props.notas.length" class="space-y-4">
+                        <p class="mt-1 text-sm text-gray-600">Notas sobre este atendimento</p>
+                        <div v-for="nota in props.notas" :key="nota.id" class="border p-4 rounded-md">
+                            <textarea v-model="nota.nota" readonly class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
+                            <button @click="deleteNote(nota.id)" class="mt-2 text-sm text-red-600">Apagar</button>
+                        </div>
+                    </div>
+
+                    <form @submit.prevent="note" class="mt-6">
+                        <p class="mt-1 text-sm text-gray-600">
+                            Adicionar nota
+                        </p>
                         <div class="mb-3">
                             <textarea v-model="form.notas" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" id="mensagem" rows="5" required></textarea>
                         </div>
                         <div class="flex items-center gap-4">
                             <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
                         </div>
-                        <Transition
-                            enter-active-class="transition ease-in-out"
-                            enter-from-class="opacity-0"
-                            leave-active-class="transition ease-in-out"
-                            leave-to-class="opacity-0"
-                        >
-                            <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Nota adicionada.</p>
-                        </Transition>
                     </form>
                 </div>
             </div>
