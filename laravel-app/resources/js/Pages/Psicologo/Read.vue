@@ -145,7 +145,7 @@ const deleteNote = (id) => {
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <OtherButton @click="voltar">Voltar</OtherButton>
+                            <OtherButton type="button" @click="voltar">Voltar</OtherButton>
                             <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
                         </div>
                     </form>

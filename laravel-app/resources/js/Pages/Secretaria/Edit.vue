@@ -158,16 +158,8 @@ function voltar(){
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <OtherButton @click="voltar()">Voltar</OtherButton>
+                            <OtherButton type="button" @click="voltar()">Voltar</OtherButton>
                             <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-                            <Transition
-                                enter-active-class="transition ease-in-out"
-                                enter-from-class="opacity-0"
-                                leave-active-class="transition ease-in-out"
-                                leave-to-class="opacity-0"
-                            >
-                                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Salvo.</p>
-                            </Transition>
                         </div>
                     </form>
                 </div>

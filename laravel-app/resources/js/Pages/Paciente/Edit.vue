@@ -141,7 +141,7 @@ function voltar(){
 
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
-                    <OtherButton @click="voltar()">Voltar</OtherButton>
+                    <OtherButton type="button" @click="voltar()">Voltar</OtherButton>
                     <PrimaryButton type="submit">Salvar Alterações</PrimaryButton>
                 </form>
             </div>
