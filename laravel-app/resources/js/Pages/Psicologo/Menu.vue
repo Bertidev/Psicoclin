@@ -3,12 +3,17 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import { Head,router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
+import { ref, onMounted, onUnmounted } from 'vue';
+import axios from 'axios';
 
-defineProps({
+const props = defineProps({
     consultas: Array,
     consultas_hoje: Array
 });
+
+const consultasData = ref(props.consultas);
+const consultasHojeData = ref(props.consultas_hoje);
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -19,9 +24,31 @@ function formatDate(dateString) {
 }
 
 function ler(id) {
-    router.get(route('psicologo.read',id))
+    router.get(route('psicologo.read', id));
 }
 
+function fetchConsultas() {
+    axios.get(route('psicologo.dashboard'))
+        .then(response => {
+            consultasData.value = response.data.consultas;
+            consultasHojeData.value = response.data.consultas_hoje;
+        })
+        .catch(error => {
+            console.error('Error fetching consultas:', error);
+        });
+}
+
+onMounted(() => {
+    // Fetch data initially
+    fetchConsultas();
+
+    // Set up polling interval
+    const interval = setInterval(fetchConsultas, 5000); // Poll every 5 seconds
+
+    onUnmounted(() => {
+        clearInterval(interval);
+    });
+});
 </script>
 
 <template>
@@ -59,7 +86,7 @@ function ler(id) {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="consulta in consultas" :key="consulta.id">
+                            <tr v-for="consulta in consultasData" :key="consulta.id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="font-medium text-gray-800">{{ formatDate(consulta.data) }}</div>
@@ -104,7 +131,7 @@ function ler(id) {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="consulta_hoje in consultas_hoje" :key="consulta_hoje.id">
+                            <tr v-for="consulta_hoje in consultasHojeData" :key="consulta_hoje.id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ consulta_hoje.hora }}</div>
                                 </td>
@@ -112,9 +139,9 @@ function ler(id) {
                                     <div class="text-left font-medium">{{ consulta_hoje.paciente.name }}</div>
                                 </td>
                                 <td>
-                                <div class="flex items-center gap-4">
-                                 <PrimaryButton @click="ler(consulta_hoje.id)">Detalhes</PrimaryButton>
-                                </div>
+                                    <div class="flex items-center gap-4">
+                                        <PrimaryButton @click="ler(consulta_hoje.id)">Detalhes</PrimaryButton>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

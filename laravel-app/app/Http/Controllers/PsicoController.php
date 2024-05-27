@@ -10,7 +10,7 @@ use App\Models\Notas;
 
 class PsicoController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $psicologoId = auth()->user()->id; 
 
@@ -23,6 +23,13 @@ class PsicoController extends Controller
             ->where('psicologo_id', $psicologoId)
             ->whereDate('data', '=', now())
             ->get();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'consultas' => $consultas,
+                'consultas_hoje' => $consultas_hoje,
+            ]);
+        }
 
         return Inertia::render('Psicologo/Menu', [
             'consultas' => $consultas, 
@@ -78,5 +85,19 @@ class PsicoController extends Controller
         $nota->delete();
 
         return redirect()->back()->with('confirmation', 'Nota apagada com sucesso.');
+    }
+
+    public function updateNote(Request $request, $id)
+    {
+        $request->validate([
+            'nota' => 'required|string|max:1000',
+        ]);
+
+        $nota = Notas::findOrFail($id);
+        $nota->update([
+            'nota' => $request->nota,
+        ]);
+
+        return redirect()->back()->with('confirmation', 'Nota atualizada com sucesso.');
     }
 }

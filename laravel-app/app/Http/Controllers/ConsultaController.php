@@ -29,6 +29,16 @@ class ConsultaController extends Controller
             return redirect()->back()->withErrors(['name' => 'Psicólogo não encontrado.']);
         }
 
+        
+        $existingConsultation = Consultas::where('psicologo_id', $doctor->id)
+            ->where('data', $request->date)
+            ->where('hora', $request->time)
+            ->first();
+
+        if ($existingConsultation) {
+            return redirect()->back()->withErrors(['time' => 'O psicólogo já possui uma consulta agendada neste horário.']);
+        }
+
         $consulta = new Consultas();
         $consulta->psicologo_id = $doctor->id;
         $consulta->paciente_id = $request->user()->id;
@@ -39,7 +49,6 @@ class ConsultaController extends Controller
 
         return redirect()->route('dashboard')->with('confirmation', 'Consulta agendada com sucesso.');
     }
-
 
     public function delete($id)
     {
@@ -68,8 +77,20 @@ class ConsultaController extends Controller
         ]);
 
         $consulta = Consultas::findOrFail($id);
+
+        
+        $existingConsultation = Consultas::where('psicologo_id', $request->psicologo_id)
+            ->where('data', $request->date)
+            ->where('hora', $request->time)
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingConsultation) {
+            return redirect()->back()->withErrors(['time' => 'O psicólogo já possui uma consulta agendada neste horário.']);
+        }
+
         $consulta->psicologo_id = $request->psicologo_id;
-        $consulta->hora =$request->time;
+        $consulta->hora = $request->time;
         $consulta->data = $request->date;
 
         $consulta->save();

@@ -19,6 +19,8 @@ const form = useForm({
     email: props.paciente.email,
     cep: props.paciente.cep,
     notas: '',
+    editingNote: null, // Track the note being edited
+    editNoteContent: '', // Content of the note being edited
 });
 
 function voltar() {
@@ -39,6 +41,25 @@ const note = () => {
 
 const deleteNote = (id) => {
     router.delete(route('note.delete', id));
+};
+
+const startEditing = (note) => {
+    form.editingNote = note.id;
+    form.editNoteContent = note.nota;
+};
+
+const cancelEditing = () => {
+    form.editingNote = null;
+    form.editNoteContent = '';
+};
+
+const saveNote = (id) => {
+    router.put(route('note.update', id), { nota: form.editNoteContent }, {
+        onSuccess: () => {
+            form.editingNote = null;
+            form.editNoteContent = '';
+        }
+    });
 };
 </script>
 
@@ -165,8 +186,20 @@ const deleteNote = (id) => {
                     <div v-if="props.notas.length" class="space-y-4">
                         <p class="mt-1 text-sm text-gray-600">Notas sobre este atendimento</p>
                         <div v-for="nota in props.notas" :key="nota.id" class="border p-4 rounded-md">
-                            <textarea v-model="nota.nota" readonly class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
-                            <button @click="deleteNote(nota.id)" class="mt-2 text-sm text-red-600">Apagar</button>
+                            <div v-if="form.editingNote === nota.id">
+                                <textarea v-model="form.editNoteContent" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
+                                <div class="flex items-center gap-4 mt-2">
+                                    <button @click="saveNote(nota.id)" :disabled="form.processing" class="text-sm text-[#6F7C5E]">Salvar</button>
+                                    <button @click="cancelEditing" type="button" class="text-sm text-red-600">Cancelar</button>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <textarea v-model="nota.nota" readonly class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
+                                <div class="flex items-center gap-4 mt-2">
+                                    <button @click="startEditing(nota)" class="text-sm text-gray-600">Editar</button>
+                                    <button @click="deleteNote(nota.id)" class="text-sm text-red-600">Apagar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
