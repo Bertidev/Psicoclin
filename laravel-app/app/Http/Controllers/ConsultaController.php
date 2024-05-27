@@ -19,12 +19,12 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'psicologo_id' => 'required|exists:users,id',
             'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i|before:18:31|after:7:59',
+            'time'=> 'required|date_format:H:i|before:18:31|after:7:59'
         ]);
 
-        $doctor = User::where('name', $request->name)->where('role', '2')->first();
+        $doctor = User::where('id', $request->psicologo_id)->where('role', '2')->first();
         if (!$doctor) {
             return redirect()->back()->withErrors(['name' => 'Psicólogo não encontrado.']);
         }

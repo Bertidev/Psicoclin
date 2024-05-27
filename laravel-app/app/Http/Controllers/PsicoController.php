@@ -24,16 +24,22 @@ class PsicoController extends Controller
             ->whereDate('data', '=', now())
             ->get();
 
+        $pacientes = $consultas->map(function($consulta) {
+            return $consulta->paciente;
+        })->unique('id');
+
         if ($request->expectsJson()) {
             return response()->json([
                 'consultas' => $consultas,
                 'consultas_hoje' => $consultas_hoje,
+                'pacientes' => $pacientes,
             ]);
         }
 
         return Inertia::render('Psicologo/Menu', [
             'consultas' => $consultas, 
             'consultas_hoje' => $consultas_hoje,
+            'pacientes' => $pacientes,
         ]);
     }
 
@@ -100,4 +106,17 @@ class PsicoController extends Controller
 
         return redirect()->back()->with('confirmation', 'Nota atualizada com sucesso.');
     }
+    
+    public function editpacient($id)
+    {
+        $paciente = User::findOrFail($id);
+        $consultas = Consultas::where('paciente_id', $id)->pluck('id');
+        $notas = Notas::whereIn('consulta', $consultas)->get();
+
+        return Inertia::render('Psicologo/Edit', [
+            'paciente' => $paciente,
+            'notas' => $notas,
+        ]);
+    }
+
 }

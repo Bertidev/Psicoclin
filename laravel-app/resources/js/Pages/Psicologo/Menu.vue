@@ -1,19 +1,19 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import DangerButton from '@/Components/DangerButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
     consultas: Array,
-    consultas_hoje: Array
+    consultas_hoje: Array,
+    pacientes: Array,
 });
 
 const consultasData = ref(props.consultas);
 const consultasHojeData = ref(props.consultas_hoje);
+const pacientesData = ref(props.pacientes);
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -27,11 +27,16 @@ function ler(id) {
     router.get(route('psicologo.read', id));
 }
 
+function editar(id) {
+    router.get(route('edit.pacient',id));
+}
+
 function fetchConsultas() {
     axios.get(route('psicologo.dashboard'))
         .then(response => {
             consultasData.value = response.data.consultas;
             consultasHojeData.value = response.data.consultas_hoje;
+            pacientesData.value = response.data.pacientes;
         })
         .catch(error => {
             console.error('Error fetching consultas:', error);
@@ -39,11 +44,11 @@ function fetchConsultas() {
 }
 
 onMounted(() => {
-    // Fetch data initially
+    
     fetchConsultas();
 
-    // Set up polling interval
-    const interval = setInterval(fetchConsultas, 5000); // Poll every 5 seconds
+    
+    const interval = setInterval(fetchConsultas, 5000); 
 
     onUnmounted(() => {
         clearInterval(interval);
@@ -65,7 +70,7 @@ onMounted(() => {
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Próximas Consultas</h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Consultar informações de sobre suas próximas consultas
+                            Consultar informações sobre suas próximas consultas
                         </p>
                     </header>
                     <table class="table-auto w-full">
@@ -102,10 +107,6 @@ onMounted(() => {
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Consultas Hoje</h2>
@@ -141,6 +142,44 @@ onMounted(() => {
                                 <td>
                                     <div class="flex items-center gap-4">
                                         <PrimaryButton @click="ler(consulta_hoje.id)">Detalhes</PrimaryButton>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <header class="px-5 py-4 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">Pacientes</h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Lista de pacientes com consultas agendadas.
+                        </p>
+                    </header>
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Nome</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Email</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Opções</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100">
+                            <tr v-for="paciente in pacientesData" :key="paciente.id">
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left font-medium">{{ paciente.name }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">{{ paciente.email }}</div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-4">
+                                            <PrimaryButton @click="editar(paciente.id)">Detalhes</PrimaryButton>
                                     </div>
                                 </td>
                             </tr>

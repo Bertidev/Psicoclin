@@ -10,7 +10,6 @@ import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     paciente: Object,
-    consulta: Object,
     notas: Array,
 });
 
@@ -18,45 +17,15 @@ const form = useForm({
     name: props.paciente.name,
     email: props.paciente.email,
     cep: props.paciente.cep,
-    notas: '',
-    editingNote: null, // Track the note being edited
-    editNoteContent: '', // Content of the note being edited
 });
 
 function voltar() {
     router.get(route('psicologo.dashboard'));
 }
 
-const note = () => {
-    form.post(route('note.add', props.consulta.id), {
-        onSuccess: () => {
-            form.reset('notas');
-        }
-    });
-};
-
-const deleteNote = (id) => {
-    router.delete(route('note.delete', id));
-};
-
-const startEditing = (note) => {
-    form.editingNote = note.id;
-    form.editNoteContent = note.nota;
-};
-
-const cancelEditing = () => {
-    form.editingNote = null;
-    form.editNoteContent = '';
-};
-
-const saveNote = (id) => {
-    router.put(route('note.update', id), { nota: form.editNoteContent }, {
-        onSuccess: () => {
-            form.editingNote = null;
-            form.editNoteContent = '';
-        }
-    });
-};
+function updatePaciente() {
+    form.put(route('psicologo.update', props.paciente.id));
+}
 </script>
 
 <template>
@@ -64,7 +33,7 @@ const saveNote = (id) => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detalhes sobre sua consulta</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detalhes sobre seu paciente</h2>
         </template>
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -81,7 +50,7 @@ const saveNote = (id) => {
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Informações do paciente</h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Consulte informações a respeito do paciente
+                            Consulte ou altere informações a respeito do paciente
                         </p>
                     </header>
                     <form @submit.prevent="updatePaciente" class="mt-6 space-y-6">
@@ -92,8 +61,8 @@ const saveNote = (id) => {
                                 type="text"
                                 class="mt-1 block w-full"
                                 v-model="form.name"
+                                required
                                 autofocus
-                                readonly
                                 autocomplete="name"
                             />
                             <InputError class="mt-2" :message="form.errors.name" />
@@ -106,7 +75,7 @@ const saveNote = (id) => {
                                 type="email"
                                 class="mt-1 block w-full"
                                 v-model="form.email"
-                                readonly
+                                required
                                 autocomplete="username"
                             />
                             <InputError class="mt-2" :message="form.errors.email" />
@@ -120,7 +89,7 @@ const saveNote = (id) => {
                                 class="mt-1 block w-full"
                                 v-model="form.cep"
                                 onblur="pesquisacep(this.value)"
-                                readonly
+                                required
                                 autocomplete="postal-code"
                             />
                         </div>
@@ -167,50 +136,25 @@ const saveNote = (id) => {
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+                <!-- Seção de Notas do Paciente -->
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
-                        <h2 class="font-semibold text-gray-800">Notas sobre a consulta</h2>
+                        <h2 class="font-semibold text-gray-800">Notas do Paciente</h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Adicione comentários, notas, ou informações adicionais a respeito de seu atendimento
+                            Lista de notas registradas a respeito do paciente
                         </p>
                     </header>
-
-                    <div v-if="props.notas.length" class="space-y-4">
-                        <p class="mt-1 text-sm text-gray-600">Notas sobre este atendimento</p>
-                        <div v-for="nota in props.notas" :key="nota.id" class="border p-4 rounded-md">
-                            <div v-if="form.editingNote === nota.id">
-                                <textarea v-model="form.editNoteContent" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
-                                <div class="flex items-center gap-4 mt-2">
-                                    <button @click="saveNote(nota.id)" :disabled="form.processing" class="text-sm text-[#6F7C5E]">Salvar</button>
-                                    <button @click="cancelEditing" type="button" class="text-sm text-red-600">Cancelar</button>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <textarea v-model="nota.nota" readonly class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" rows="5"></textarea>
-                                <div class="flex items-center gap-4 mt-2">
-                                    <button @click="startEditing(nota)" class="text-sm text-gray-600">Editar</button>
-                                    <button @click="deleteNote(nota.id)" class="text-sm text-red-600">Apagar</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <ul>
+                            <li v-for="nota in props.notas" :key="nota.id" class="mb-4">
+                                <div class="text-gray-600 text-sm">{{ nota.nota }}</div>
+                                <div class="text-gray-500 text-xs">{{ new Date(nota.created_at).toLocaleDateString() }}</div>
+                            </li>
+                        </ul>
                     </div>
-
-                    <form @submit.prevent="note" class="mt-6">
-                        <p class="mt-1 text-sm text-gray-600">
-                            Adicionar nota
-                        </p>
-                        <div class="mb-3">
-                            <textarea v-model="form.notas" class="form-control border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" id="mensagem" rows="5" required></textarea>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
-                        </div>
-                    </form>
                 </div>
+
             </div>
         </div>
     </AuthenticatedLayout>

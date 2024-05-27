@@ -63,6 +63,7 @@ Route::controller(PsicoController::class)->group(function () {
     Route::post('/psicologo/note/{id}','note')->name('note.add');
     Route::delete('/note/{id}','deletenote')->name('note.delete');
     Route::put('/note/{id}', 'updateNote')->name('note.update');
+    Route::get('edit/pacient/{id}','editpacient')->name('edit.pacient');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 

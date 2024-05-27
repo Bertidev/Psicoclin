@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            //psicologo
+            //psicologos
             [
                 'name' =>  'magas',
                 'email' => 'magas@magas.com',
@@ -25,10 +25,17 @@ class DatabaseSeeder extends Seeder
                 'cep'=>'13324340',
                 'role' => '2',
             ],
+            [
+                'name' =>  'andrezza',
+                'email' => 'dezza@linda.com',
+                'password' => Hash::make('password'),
+                'cep'=>'13073003',
+                'role' => '2',
+            ]
         ]);
         
         DB::table('users')->insert([
-            //secretario
+            //secretarios
             [
                 'name' =>  'denis',
                 'email' => 'denis@denis.com',
@@ -47,10 +54,17 @@ class DatabaseSeeder extends Seeder
 
 
         DB::table('users')->insert([
-            //paciente
+            //pacientes
             [
                 'name' =>  'berti',
                 'email' => 'berti@berti.com',
+                'password' => Hash::make('password'),
+                'cep'=>'13087570',
+                'role' => '0',
+            ],
+            [
+                'name' =>  'Sofia',
+                'email' => 'SB@SB.com',
                 'password' => Hash::make('password'),
                 'cep'=>'13087570',
                 'role' => '0',
@@ -73,32 +87,33 @@ class DatabaseSeeder extends Seeder
         $tomorrow = Carbon::tomorrow();
 
         DB::table('consultas')->insert([
+            //consultas com magas
             [
-                'paciente_id' =>  '4',
+                'paciente_id' =>  '4',//berti
                 'psicologo_id' => '1',
                 'data'=>$yesterday->format('Y-m-d'),
                 'hora' => '12:30:00',
             ],
             [
-                'paciente_id' =>  '4',
+                'paciente_id' =>  '4',//berti
                 'psicologo_id' => '1',
                 'data'=>$today->format('Y-m-d'),
                 'hora' => '8:00:00',
             ],
             [
-                'paciente_id' =>  '4',
+                'paciente_id' =>  '4',//berti
                 'psicologo_id' => '1',
                 'data'=>$today->format('Y-m-d'),
                 'hora' => '15:30:00',
             ],
             [
-                'paciente_id' =>  '4',
+                'paciente_id' =>  '4',//berti
                 'psicologo_id' => '1',
                 'data'=>$tomorrow->format('Y-m-d'),
                 'hora' => '9:30:00',
             ],
             [
-                'paciente_id' =>  '4',
+                'paciente_id' =>  '4',//berti
                 'psicologo_id' => '1',
                 'data'=>$tomorrow->format('Y-m-d'),
                 'hora' => '17:45:00',

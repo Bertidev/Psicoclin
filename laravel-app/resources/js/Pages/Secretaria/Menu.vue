@@ -5,22 +5,26 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 
-defineProps({pacientes:Object})
+defineProps({ pacientes: Object, consultasHoje: Object });
 
-function excluir(id)
-{
-    router.delete(route('secretaria.delete',id))
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getUTCDate().toString().padStart(2, '0');
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+    const year = date.getUTCFullYear();
+    return `${day}/${month}/${year}`;
 }
-function editar(id)
-{
-    router.get(route('secretaria.edit',id))
+
+function excluir(id) {
+    router.delete(route('secretaria.delete', id));
 }
-function criar()
-{
-    router.get(route('secretaria.create'))
+function editar(id) {
+    router.get(route('secretaria.edit', id));
+}
+function criar() {
+    router.get(route('secretaria.create'));
 }
 </script>
 
@@ -42,15 +46,15 @@ function criar()
                     <p v-if="$page.props.flash.confirmation" class="p-4 mb-4 text-sm text-green-700 bg-green-100 border border-green-400 rounded">
                         {{ $page.props.flash.confirmation }}</p>
                 </Transition>
+                
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Pacientes</h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Consultar informações de pacientes cadastrados na clinica
+                            Consultar informações de pacientes cadastrados na clínica
                         </p>
                         <div class="flex items-left pt-3">
-                        <primary-button @click="criar()"
-                            >Cadastrar</primary-button> 
+                            <PrimaryButton @click="criar">Cadastrar</PrimaryButton>
                         </div>
                     </header>
                     <table class="table-auto w-full">
@@ -71,27 +75,60 @@ function criar()
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="paciente in pacientes">
-                            <td class="p-2 whitespace-nowrap">
-                                <div class="flex items-center">
-                                <div class="font-medium text-gray-800">{{paciente.name}}</div>
-                                </div>
-                            </td>
-                            <td class="p-2 whitespace-nowrap">
-                                <div class="text-left">{{paciente.email}}</div>
-                            </td>
-                            <td class="p-2 whitespace-nowrap">
-                                <div class="text-left font-medium">{{paciente.cep}}</div>
-                            </td>
-                            <td>
-                            <div class="flex items-center gap-4">
-                                <SecondaryButton @click="editar(paciente.id)"
-                                            >Editar</SecondaryButton>
-                                
+                            <tr v-for="paciente in pacientes" :key="paciente.id">
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="font-medium text-gray-800">{{ paciente.name }}</div>
+                                    </div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">{{ paciente.email }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left font-medium">{{ paciente.cep }}</div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-4">
+                                        <SecondaryButton @click="editar(paciente.id)">Editar</SecondaryButton>
+                                        <DangerButton @click="excluir(paciente.id)">Excluir</DangerButton>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                                <DangerButton @click="excluir(paciente.id)"
-                                            >Excluir</DangerButton>
-                            </div>
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <header class="px-5 py-4 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">Consultas de Hoje</h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Listagem de consultas que acontecerão na data de hoje
+                        </p>
+                    </header>
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-200">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Hora</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Paciente</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Psicólogo</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100">
+                            <tr v-for="consulta in consultasHoje" :key="consulta.id">
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">{{ consulta.hora }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left font-medium">{{ consulta.paciente.name }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left font-medium">{{ consulta.psicologo.name }}</div>
                                 </td>
                             </tr>
                         </tbody>
