@@ -35,7 +35,10 @@ function fetchConsultas() {
     axios.get(route('psicologo.dashboard'))
         .then(response => {
             consultasData.value = response.data.consultas;
-            consultasHojeData.value = response.data.consultas_hoje;
+            consultasHojeData.value = response.data.consultas_hoje.map(consulta => {
+                consulta.notificado = consulta.notificado;
+                return consulta;
+            });
             pacientesData.value = response.data.pacientes;
         })
         .catch(error => {
@@ -127,7 +130,7 @@ onMounted(() => {
                                     <div class="font-semibold text-left">Opções</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left"></div>
+                                    <div class="font-semibold text-left">Status</div>
                                 </th>
                             </tr>
                         </thead>
@@ -142,6 +145,12 @@ onMounted(() => {
                                 <td>
                                     <div class="flex items-center gap-4">
                                         <PrimaryButton @click="ler(consulta_hoje.id)">Detalhes</PrimaryButton>
+                                    </div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left font-medium">
+                                        <span v-if="consulta_hoje.notificado">Paciente chegou</span>
+                                        <span v-else>--</span>
                                     </div>
                                 </td>
                             </tr>

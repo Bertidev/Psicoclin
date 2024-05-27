@@ -54,6 +54,7 @@ Route::controller(ConsultaController::class)->group(function () {
     Route::delete('/agendamento/cancelar/{id}', 'delete')->name('consulta.delete');
     Route::get('/agendamento/remarcar/{id}','edit')->name('consulta.edit');
     Route::put('/agendamento/{id}','update')->name('consulta.update');
+    Route::post('/consultas/{id}/notify', 'notify')->name('consultas.notify');
 });
 
 Route::controller(PsicoController::class)->group(function () {

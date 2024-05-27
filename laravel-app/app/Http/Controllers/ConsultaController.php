@@ -16,6 +16,19 @@ class ConsultaController extends Controller
         return Inertia::render('Paciente/Agendar', compact('psicologos'));
     }
 
+    public function notify($id)
+    {
+        try {
+            $consulta = Consultas::findOrFail($id);
+            $consulta->notificado = true;
+            $consulta->save();
+
+            return response()->json(['success' => 'Psicóloga notificada com sucesso.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erro ao notificar a psicóloga: ' . $e->getMessage()], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -6,6 +6,8 @@ import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import axios from 'axios';
 
 defineProps({ pacientes: Object, consultasHoje: Object });
 
@@ -15,6 +17,17 @@ function formatDate(dateString) {
     const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
     const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
+}
+
+function notificar(id) {
+    axios.post(route('consultas.notify', id))
+        .then(response => {
+            console.log(response.data);
+            alert('Psicóloga notificada com sucesso.');
+        })
+        .catch(error => {
+            console.error('Erro ao notificar a psicóloga:', error);
+        });
 }
 
 function excluir(id) {
@@ -117,6 +130,9 @@ function criar() {
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Psicólogo</div>
                                 </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Notificar Psicólogo</div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
@@ -129,6 +145,11 @@ function criar() {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left font-medium">{{ consulta.psicologo.name }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="text-left">
+                                        <PrimaryButton @click="notificar(consulta.id)">Notificar</PrimaryButton>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
