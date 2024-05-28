@@ -45,6 +45,14 @@ function voltar(){
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0">
+                    <p v-if="$page.props.flash.confirmation" class="p-4 mb-4 text-sm text-green-700 bg-green-100 border border-green-400 rounded">
+                        {{ $page.props.flash.confirmation }}</p>
+                </Transition>
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h1 class="text-lg font-medium text-gray-900">Consultas</h1>
@@ -87,12 +95,14 @@ function voltar(){
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ consulta.hora }}</div>
                                 </td>
+                                <div class="flex items-center gap-4">
                                 <SecondaryButton @click="remarcar(consulta.id)"
                                             >Remarcar</SecondaryButton>
                                 
 
                                 <DangerButton @click="cancelar(consulta.id)"
                                             >Cancelar</DangerButton>
+                                </div>
                             </tr>
                         </tbody>
                     </table>

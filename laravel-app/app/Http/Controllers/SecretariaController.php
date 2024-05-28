@@ -3,26 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Inertia\Response;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use App\Models\Consultas;
+use Illuminate\Support\Facades\Redirect;
 
 class SecretariaController extends Controller
 {
     public function dashboard()
     {
-        $pacientes = User::where('role','=','0')->get();
+        $pacientes = User::where('role', '=', '0')->get();
+        $consultasHoje = Consultas::with(['paciente', 'psicologo'])
+            ->whereDate('data', '=', now()->toDateString())
+            ->get();
 
-        return Inertia::render('Secretaria/Menu',compact('pacientes'));
+        return Inertia::render('Secretaria/Menu', compact('pacientes', 'consultasHoje'));
     }
 
     public function create()
@@ -34,42 +30,41 @@ class SecretariaController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required','min:8'],
-            'cep'=>['required', 'string','max:10'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'min:8'],
+            'cep' => ['required', 'string', 'max:10'],
         ]);
 
         User::create($validated);
 
-        return redirect(route('secretaria.dashboard'));
+        return redirect(route('secretaria.dashboard'))->with('confirmation', 'Paciente cadastrado com sucesso.');
     }
 
     public function delete($id)
     {
-        $user = User::findOrFail($id)->delete();
-        
-        return redirect::to('/secretaria/dashboard');
+        User::findOrFail($id)->delete();
+
+        return Redirect::to('/secretaria/dashboard')->with('confirmation', 'Paciente deletado com sucesso');
     }
 
     public function edit(User $user)
     {
-        return Inertia::render('Secretaria/Edit',[
-            'user'=>$user
+        return Inertia::render('Secretaria/Edit', [
+            'user' => $user
         ]);
     }
 
     public function update(Request $request, User $user)
     {
-        $validated=$request->validate([
-            'name'=>'required|max:255',
-            'email'=>'required',
-            'cep'=>'required|max:9',
-            'password'=>'min:8'
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'cep' => 'required|max:9',
+            'password' => 'min:8'
         ]);
 
         $user->update($validated);
 
-        return redirect(route('secretaria.dashboard'));
+        return redirect(route('secretaria.dashboard'))->with('confirmation', 'Alteração realizada com sucesso.');
     }
-
 }

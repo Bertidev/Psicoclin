@@ -11,7 +11,7 @@ import { router } from '@inertiajs/vue3';
 defineProps({ psicologos: Object });
 
 const form = useForm({
-    name: '',
+    psicologo_id: '',
     date: '',
     time: '',
 });
@@ -98,19 +98,13 @@ function voltar(){
                 </header>
                 <form @submit.prevent="submit" class="mt-6 space-y-6">
                     <div>
-                        <InputLabel for="name" value="Nome do profissional desejado" />
-
-                        <TextInput
-                            id="name"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.name"
-                            required
-                            autofocus
-                            autocomplete="name"
-                        />
-
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <InputLabel for="psicologo_id" value="Nome do profissional desejado" />
+                        <select id="psicologo_id" v-model="form.psicologo_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            <option v-for="psicologo in psicologos" :key="psicologo.id" :value="psicologo.id">
+                                {{ psicologo.name }}
+                            </option>
+                        </select>
+                        <InputError class="mt-2" :message="form.errors.psicologo_id" />
                     </div>
 
                     <div>
@@ -146,7 +140,7 @@ function voltar(){
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
                     <div class="flex items-center gap-4">
-                    <OtherButton @click="voltar()">Voltar</OtherButton>
+                    <OtherButton type="button" @click="voltar()">Voltar</OtherButton>
                     <PrimaryButton type="submit">Agendar Consulta</PrimaryButton>
                     </div>
                 </form>

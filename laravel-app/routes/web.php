@@ -54,10 +54,17 @@ Route::controller(ConsultaController::class)->group(function () {
     Route::delete('/agendamento/cancelar/{id}', 'delete')->name('consulta.delete');
     Route::get('/agendamento/remarcar/{id}','edit')->name('consulta.edit');
     Route::put('/agendamento/{id}','update')->name('consulta.update');
+    Route::post('/consultas/{id}/notify', 'notify')->name('consultas.notify');
 });
 
 Route::controller(PsicoController::class)->group(function () {
     Route::get('/dashboard-ps', 'dashboard')->name('psicologo.dashboard');
+    route::get('psicologo/read/{id}','read')->name('psicologo.read');
+    Route::put('/psicologo/edit/{id}','update')->name('psicologo.update');
+    Route::post('/psicologo/note/{id}','note')->name('note.add');
+    Route::delete('/note/{id}','deletenote')->name('note.delete');
+    Route::put('/note/{id}', 'updateNote')->name('note.update');
+    Route::get('edit/pacient/{id}','editpacient')->name('edit.pacient');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 

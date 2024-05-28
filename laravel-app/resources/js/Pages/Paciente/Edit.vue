@@ -141,8 +141,10 @@ function voltar(){
 
                         <InputError class="mt-2" :message="form.errors.time" />
                     </div>
-                    <OtherButton @click="voltar()">Voltar</OtherButton>
+                    <div class="flex items-center gap-4">
+                    <OtherButton type="button" @click="voltar()">Voltar</OtherButton>
                     <PrimaryButton type="submit">Salvar Alterações</PrimaryButton>
+                    </div>
                 </form>
             </div>
         </div>
