@@ -149,7 +149,7 @@ onMounted(() => {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left font-medium">
-                                        <span v-if="consulta_hoje.notificado">Paciente chegou</span>
+                                        <span v-if="consulta_hoje.notificado" class="text-red-600">Paciente chegou</span>
                                         <span v-else>--</span>
                                     </div>
                                 </td>
@@ -194,6 +194,15 @@ onMounted(() => {
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <header class="px-5 py-4 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">Documentos</h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Gere encaminhamentos ou atestados para seus pacientes.
+                        </p>
+                    </header>
+                    
                 </div>
             </div>
         </div>

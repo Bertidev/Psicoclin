@@ -46,19 +46,19 @@ COMO USAR:
 	docker swarm leave --force
 
 LOGIN ADMIN:
-	guto@gigantesco.com
+	guto@admin.com
 	password
 
 LOGIN SECRETARIA:
-	denis@denis.com
+	denis@psicoclin.com
 	password
 
 LOGIN PSICOLOGO:
-	magas@magas.com
+	magaldi@psicoclin.com
 	password
 
 LOGIN PACIENTE:
-	berti@berti.com
+	berti@gmail.com
 	password
 
 LINK LARAVEL:

@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             //admin
             [
-                'name' =>  'Guto',
+                'name' =>  'Augusto',
                 'email' => 'guto@admin.com',
                 'password' => Hash::make('password'),
                 'cep'=>'13272000',
