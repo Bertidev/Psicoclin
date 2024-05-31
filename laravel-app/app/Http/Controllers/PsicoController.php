@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Consultas;
 use App\Models\Notas;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PsicoController extends Controller
 {
@@ -117,6 +118,22 @@ class PsicoController extends Controller
             'paciente' => $paciente,
             'notas' => $notas,
         ]);
+    }
+
+    public function gerarEncaminhamento($id)
+    {
+        $paciente = User::findOrFail($id);
+        $pdf = Pdf::loadView('encaminhamento', compact('paciente'));
+
+        return $pdf->download('encaminhamento.pdf');
+    }
+
+    public function gerarAtestado($id)
+    {
+        $paciente = User::findOrFail($id);
+
+        $pdf = Pdf::loadview('atestado',compact('paciente'));
+        return $pdf->download('atestado.pdf');
     }
 
 }

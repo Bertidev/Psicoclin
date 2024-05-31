@@ -57,6 +57,14 @@ onMounted(() => {
         clearInterval(interval);
     });
 });
+
+function gerarEncaminhamento(id) {
+    router.get(route('psicologo.gerarEncaminhamento', id));
+}
+
+function gerarAtestado(id) {
+    router.get(route('psicologo.gerarAtestado', id));
+}
 </script>
 
 <template>
@@ -202,7 +210,15 @@ onMounted(() => {
                             Gere encaminhamentos ou atestados para seus pacientes.
                         </p>
                     </header>
-                    
+                    <div class="py-4">
+                        <div v-for="paciente in pacientesData" :key="paciente.id" class="mb-4">
+                            <p>{{ paciente.name }}</p>
+                            <div class="flex items-center gap-4">
+                                <PrimaryButton @click="gerarEncaminhamento(paciente.id)">Encaminhamento</PrimaryButton>
+                                <PrimaryButton @click="gerarAtestado(paciente.id)">Atestado</PrimaryButton>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
