@@ -65,6 +65,8 @@ Route::controller(PsicoController::class)->group(function () {
     Route::delete('/note/{id}','deletenote')->name('note.delete');
     Route::put('/note/{id}', 'updateNote')->name('note.update');
     Route::get('edit/pacient/{id}','editpacient')->name('edit.pacient');
+    Route::post('/psicologo/documento/encaminhamento/{id}','gerarEncaminhamento')->name('psicologo.gerarEncaminhamento');
+    Route::post('/psicologo/documento/atestado/{id}', 'gerarAtestado')->name('psicologo.gerarAtestado');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(AdmController::class)->group(function() { 

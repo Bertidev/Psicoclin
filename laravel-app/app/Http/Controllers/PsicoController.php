@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Consultas;
 use App\Models\Notas;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PsicoController extends Controller
 {
@@ -118,5 +119,31 @@ class PsicoController extends Controller
             'notas' => $notas,
         ]);
     }
+
+    public function gerarEncaminhamento(Request $request ,$id)
+    {
+        $paciente = User::findOrFail($id);
+        $texto = $request->input('texto');
+
+        $pdf = PDF::loadView('encaminhamento', compact('paciente', 'texto'));
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->save(public_path('encaminhamento.pdf'));
+
+        return response()->json(['message' => 'Encaminhamento gerado com sucesso.']);
+    }
+
+    public function gerarAtestado(Request $request, $id)
+    {
+        $paciente = User::findOrFail($id);
+        $texto = $request->input('texto');
+
+        $pdf = PDF::loadView('atestado', ['paciente' => $paciente, 'texto'=>$texto]);
+
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->save(public_path('atestado.pdf'));
+
+        return response()->json(['message' => 'Atestado gerado com sucesso.']);
+    }
+
 
 }
