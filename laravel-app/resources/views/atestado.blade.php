@@ -22,7 +22,7 @@
         <p>Nome do Paciente: {{ $paciente->name }}</p>
         <p>Email do Paciente: {{ $paciente->email }}</p>
         <p>CEP do Paciente: {{ $paciente->cep }}</p>
-        <p>Descrição do atestado...</p>
+        <p>{{ $texto }}</p>
     </div>
 </body>
 </html>

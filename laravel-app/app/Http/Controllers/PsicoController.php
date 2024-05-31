@@ -120,20 +120,30 @@ class PsicoController extends Controller
         ]);
     }
 
-    public function gerarEncaminhamento($id)
+    public function gerarEncaminhamento(Request $request ,$id)
     {
         $paciente = User::findOrFail($id);
-        $pdf = Pdf::loadView('encaminhamento', compact('paciente'));
+        $texto = $request->input('texto');
 
-        return $pdf->download('encaminhamento.pdf');
+        $pdf = PDF::loadView('encaminhamento', compact('paciente', 'texto'));
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->save(public_path('encaminhamento.pdf'));
+
+        return response()->json(['message' => 'Encaminhamento gerado com sucesso.']);
     }
 
-    public function gerarAtestado($id)
+    public function gerarAtestado(Request $request, $id)
     {
         $paciente = User::findOrFail($id);
+        $texto = $request->input('texto');
 
-        $pdf = Pdf::loadview('atestado',compact('paciente'));
-        return $pdf->download('atestado.pdf');
+        $pdf = PDF::loadView('atestado', ['paciente' => $paciente, 'texto'=>$texto]);
+
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->save(public_path('atestado.pdf'));
+
+        return response()->json(['message' => 'Atestado gerado com sucesso.']);
     }
+
 
 }

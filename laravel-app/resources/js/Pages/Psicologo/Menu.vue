@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
@@ -15,6 +16,11 @@ const consultasData = ref(props.consultas);
 const consultasHojeData = ref(props.consultas_hoje);
 const pacientesData = ref(props.pacientes);
 
+const form = ref({
+    pacienteId: '',
+    texto: ''
+});
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getUTCDate().toString().padStart(2, '0');
@@ -28,7 +34,7 @@ function ler(id) {
 }
 
 function editar(id) {
-    router.get(route('edit.pacient',id));
+    router.get(route('edit.pacient', id));
 }
 
 function fetchConsultas() {
@@ -47,23 +53,33 @@ function fetchConsultas() {
 }
 
 onMounted(() => {
-    
     fetchConsultas();
-
-    
-    const interval = setInterval(fetchConsultas, 5000); 
-
+    const interval = setInterval(fetchConsultas, 5000);
     onUnmounted(() => {
         clearInterval(interval);
     });
 });
 
-function gerarEncaminhamento(id) {
-    router.get(route('psicologo.gerarEncaminhamento', id));
+function gerarEncaminhamento() {
+    axios.post(route('psicologo.gerarEncaminhamento',form.value.pacienteId), form.value)
+    .then(response => {
+        alert(response.data.message)
+        window.location.reload()
+    })
+    .catch(error =>{
+        console.log(error)
+    })
 }
 
-function gerarAtestado(id) {
-    router.get(route('psicologo.gerarAtestado', id));
+function gerarAtestado() {
+    axios.post(route('psicologo.gerarAtestado', form.value.pacienteId), form.value)
+    .then(response => {
+        alert(response.data.message)
+        window.location.reload()
+    })
+    .catch(error =>{
+        console.log(error)
+    })
 }
 </script>
 
@@ -77,6 +93,16 @@ function gerarAtestado(id) {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <Transition
+                    enter-active-class="transition ease-in-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out"
+                    leave-to-class="opacity-0">
+                    <p v-if="$page.props.flash.confirmation" class="p-4 mb-4 text-sm text-green-700 bg-green-100 border border-green-400 rounded">
+                        <a :href="$page.props.flash.downloadLink" class="underline">{{ $page.props.flash.confirmation }}</a>
+                    </p>
+                </Transition>
+
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Próximas Consultas</h2>
@@ -118,6 +144,7 @@ function gerarAtestado(id) {
                         </tbody>
                     </table>
                 </div>
+                
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Consultas Hoje</h2>
@@ -165,6 +192,7 @@ function gerarAtestado(id) {
                         </tbody>
                     </table>
                 </div>
+
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Pacientes</h2>
@@ -196,26 +224,45 @@ function gerarAtestado(id) {
                                 </td>
                                 <td>
                                     <div class="flex items-center gap-4">
-                                            <PrimaryButton @click="editar(paciente.id)">Detalhes</PrimaryButton>
+                                        <PrimaryButton @click="editar(paciente.id)">Detalhes</PrimaryButton>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <header class="px-5 py-4 border-b border-gray-100">
                         <h2 class="font-semibold text-gray-800">Documentos</h2>
-                        <p class="mt-1 text-sm text-gray-600">
-                            Gere encaminhamentos ou atestados para seus pacientes.
-                        </p>
+                        <p class="mt-1 text-sm text-gray-600">Gere encaminhamentos ou atestados para seus pacientes.</p>
                     </header>
                     <div class="py-4">
-                        <div v-for="paciente in pacientesData" :key="paciente.id" class="mb-4">
-                            <p>{{ paciente.name }}</p>
-                            <div class="flex items-center gap-4">
-                                <PrimaryButton @click="gerarEncaminhamento(paciente.id)">Encaminhamento</PrimaryButton>
-                                <PrimaryButton @click="gerarAtestado(paciente.id)">Atestado</PrimaryButton>
+                        <div>
+                            <InputLabel for="paciente.id" value="Nome do paciente" />
+                            <select
+                                id="paciente.id"
+                                v-model="form.pacienteId"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                            >
+                                <option v-for="paciente in pacientesData" :key="paciente.id" :value="paciente.id">
+                                    {{ paciente.name }}
+                                </option>
+                            </select>
+
+                            <div class="mt-4">
+                                <InputLabel for="documento-texto" value="Texto do documento" />
+                                <textarea
+                                    id="documento-texto"
+                                    v-model="form.texto"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                    rows="4"
+                                ></textarea>
+                            </div>
+
+                            <div class="flex items-center gap-4 mt-4">
+                                <PrimaryButton @click="gerarEncaminhamento">Encaminhamento</PrimaryButton>
+                                <PrimaryButton @click="gerarAtestado">Atestado</PrimaryButton>
                             </div>
                         </div>
                     </div>
