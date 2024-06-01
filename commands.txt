@@ -13,18 +13,18 @@ COMO USAR:
 
 2-FAZER OS COMANDOS EM ORDEM:
 
- ->REMOVER ".EXAMPLE" DO ARQUIVO ".ENV" E ALTERAR O CAMPO "DB_PASSWORD=" PARA "DB_PASSWORD=root"
+->REMOVER ".EXAMPLE" DO ARQUIVO ".ENV" E ALTERAR O CAMPO "DB_PASSWORD=" PARA "DB_PASSWORD=root"
 
- ->INSTALAR DEPENDENCIAS DO NODE FORA DO CONTAINER
+->INSTALAR DEPENDENCIAS DO NODE FORA DO CONTAINER
 	npm install
 
 ->INICIAR O SWARM
-	docker swarm init//inicia o swarm
+	docker swarm init
 
 ->CRIAR OS CONTAINERS
 	docker stack deploy -c docker-compose.yml [nome-do-servico]
 
-->ENTRAR NO BASH DO CONTAINER (o nome do container deve ser obtido via dockerhub)
+->ENTRAR NO BASH DO CONTAINER (o nome do container pode ser obtido via dockerhub ou via comando 'docker container ls')
 	docker exec -it [nome do container] bash
 
  ->ATUALIZAR O COMPOSER E GERAR A KEY DO PROJETO
@@ -45,19 +45,52 @@ COMO USAR:
 ->CASO QUEIRA PARAR DE UTILIZAR NOSSO PROJETO, RODE O SEGUINTE COMANDO NO TERMINAL:
 	docker swarm leave --force
 
+->AVISOS IMPORTANTES:
+	-da primeira vez que gerar as imagens e os containers,provavelmente vai demorar um tempo, ou ao rodar 'docker container ls' nao aparecerá nada
+	é normal demorar da primeira vez, a imagem do laravel demora, mas funciona, é por causa do swarm
+	-é normal também demorar para que o aplicativo abra ao utilizar o electron, ou que as views demorem para atualizar completamente quando utilizadas no electron.
+	-os documentos gerados pelo psicologo estarão no caminho laravel-app->public e serão nomeados de "atestado.pdf" ou "encaminhamento.pdf"
+	-Em nosso projeto, as permissões de cada usuário são distinguidas através da coluna "role" da tabela users do banco de dados, podendo ter os possíveis valores de:
+		-0 significando que o usuario é um paciente
+		-1 significando que o usuario faz parte da secretaria
+		-2 significando que o usuario é um psicólogo
+		-3 significando que o usuário é um admin->há apenas um login de admin em nosso projeto
+	-Todos os perfis também, possuem a senha 'password' como padrão, mas pode ser alterada caso deseje, desde que a senha nova possua no mínimo 8 caracteres
+
+->FUNCIONALIDADES ADMIN:
+ o admin é capaz de realizar funções com os psicologos e secretarios, como:
+	-criar um perfil novo
+	-editar um perfil ja existente
+	-remover um perfil do sistema
 LOGIN ADMIN:
 	guto@admin.com
 	password
 
-LOGIN SECRETARIA:
+->FUNCIONALIDADES SECRETARIA:
+a secretaria é responsável por controlar os pacientes, podendo:
+	-criar um perfil novo para eles
+	-editar um perfil ja existente
+	-remover um perfil do sistema
+bem como avisar ao psicologo que seu paciente chegou e está esperando ser chamado para a consulta
+EXEMPLO DE LOGIN DA SECRETARIA:
 	denis@psicoclin.com
 	password
 
-LOGIN PSICOLOGO:
+->FUNCIONALIDADES PSICOLOGO:
+ o psicologo é capaz de receber a notificação de que seu paciente chegou, ler e editar informações cadastrais do perfil de seus pacientes,
+ adicionar notas sobre suas consultas com um determinado paciente, bem como ler todas as notas já escritas sobre tal paciente, em qualquer consulta
+ e gerar documentos de encaminhamento ou de atestado para seus pacientes
+EXEMPLO DE LOGIN DE PSICOLOGO:
 	magaldi@psicoclin.com
 	password
 
-LOGIN PACIENTE:
+->FUNCIONALDADES PACIENTE:
+o paciente é capaz de realizar funções com relação a suas consultas, como:
+	-Agendar uma nova consulta, mediante à lista de psicologos disponíveis
+	-remarcar uma consulta para outra data, ou horário, bem como cancelá-la se desejar
+	-acessar seu histórico de atendimentos contendo consultas de datas passadas
+	-acessar sua lista de consultas futuras, contendo consultas agendadas para a data atual, quanto para datas posteriores
+EXEMPLO DE LOGIN  DE PACIENTE:
 	berti@gmail.com
 	password
 
