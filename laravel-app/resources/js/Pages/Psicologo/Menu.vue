@@ -63,24 +63,29 @@ onMounted(() => {
 function gerarEncaminhamento() {
     axios.post(route('psicologo.gerarEncaminhamento',form.value.pacienteId), form.value)
     .then(response => {
-        alert(response.data.message)
-        window.location.reload()
+        alert('Encaminhamento gerado com sucesso!');
+        window.open(response.data.url, '_blank');
+        form.value.pacienteId = null
+        form.value.texto = ''
     })
     .catch(error =>{
         console.log(error)
     })
 }
 
-function gerarAtestado() {
+ function gerarAtestado() {
     axios.post(route('psicologo.gerarAtestado', form.value.pacienteId), form.value)
-    .then(response => {
-        alert(response.data.message)
-        window.location.reload()
-    })
-    .catch(error =>{
-        console.log(error)
-    })
+        .then(response => {
+            alert('Atestado gerado com sucesso!');
+            window.open(response.data.url, '_blank');
+            form.value.pacienteId = null
+            form.value.texto = ''
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
+
 </script>
 
 <template>
