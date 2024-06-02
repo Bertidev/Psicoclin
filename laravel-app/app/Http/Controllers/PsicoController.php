@@ -48,7 +48,7 @@ class PsicoController extends Controller
     {
         $consulta = Consultas::with('paciente')->findOrFail($id);
         $paciente = $consulta->paciente;
-        $notas = Notas::where('consulta', $id)->get(); // Carregar todas as notas relacionadas à consulta
+        $notas = Notas::where('consulta', $id)->get();
 
         return Inertia::render('Psicologo/Read', [
             'consulta' => $consulta,

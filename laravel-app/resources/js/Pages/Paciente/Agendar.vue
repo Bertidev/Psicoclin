@@ -17,9 +17,9 @@ const form = useForm({
 });
 
 const generateTimeSlots = () => {
-    const start = 8 * 60; // 8:00 in minutes
-    const end = 17 * 60 + 45; // 18:30 in minutes
-    const interval = 45; // 45 minutes
+    const start = 8 * 60;
+    const end = 17 * 60 + 45;
+    const interval = 45;
 
     let times = [];
     for (let minutes = start; minutes <= end; minutes += interval) {
