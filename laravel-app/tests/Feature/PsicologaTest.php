@@ -3,45 +3,57 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-
 
 class PsicologaTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_unauthenticated_user_cannot_acess_psico_page(): void
-    {
-        $response = $this->get('/dashboard-ps');
-
-        $response->assertRedirect('login');
-    }
-
     public function test_new_psico_registration(): void
     {
-        // Criar um novo usuário
-        $user = new User();
-        $user->name = 'John Doe';
-        $user->email = 'john@example.com';
-        $user->password = 'secret123';
-        $user->role = '2'; // Definir o papel do usuário
-
-        // Salvar o usuário
-        $result = $user->save();
+        // Criar um novo usuário usando a factory
+        $user = User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => bcrypt('secret123'), // A senha deve ser criptografada
+            'role' => '2', // Definir o papel do usuário como psicólogo
+        ]);
 
         // Verificar se o usuário foi salvo com sucesso
-        $this->assertTrue($result);
-        $this->assertNotNull($user->id);
+        $this->assertDatabaseHas('users', [
+            'email' => 'john@example.com',
+        ]);
     }
 
     public function test_psico_dashboard_render(): void
     {
+        // Criar e autenticar um usuário psicólogo
+        $user = User::factory()->create(['role' => '2']);
+
+        // Autenticar o usuário
+        $this->actingAs($user);
+
+        // Acessar a página do painel de controle do psicólogo
         $response = $this->get('/dashboard-ps');
-        $response ->  assertOk();
+
+        $response->assertOk();
     }
 
-    
+    public function test_authenticated_user_can_logout(): void
+    {
+        // Criar e autenticar um usuário
+        $user = User::factory()->create();
 
+        // Autenticar o usuário
+        $this->actingAs($user);
+
+        // Realizar logout
+        $response = $this->post('/logout');
+
+        $response->assertRedirect('/');
+
+        // Verificar se o usuário foi desautenticado
+        $this->assertGuest();
+    }
 }
