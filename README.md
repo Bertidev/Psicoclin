@@ -12,8 +12,8 @@ Este repositório contém um sistema Clínico desenvolvido utilizando:
 - <img src="https://cdn-icons-png.flaticon.com/512/5968/5968332.png" alt="PHP" width="24" height="24"> **PHP** : Linguagem de programação amplamente usada para desenvolvimento web.
 - <img src="https://www.svgrepo.com/show/303251/mysql-logo.svg" alt="MySQL" width="24" height="24"> **MySQL** : Sistema de gerenciamento de banco de dados relacional.
 - <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/65dea6c4eaca7da319e552c09f4cf5a9a8dab2c8/icons/VueJS-Dark.svg" alt="VueJS" width="24" height="24"> **VueJS** : Utilizado para o front-end do projeto.
-- <img src="https://phpunit.de/img/phpunit.svg" alt="PHPUnit" width="24" height="24"> **PHPUnit** : Usamos o PHPUnit para executar testes.
-- E uma API para preenchimento automático de endereços a partir de um CEP fornecido pelo usuário.
+- <img src="https://phpunit.de/img/phpunit.svg" alt="PHPUnit" width="38" height="24"> **PHPUnit** : Usamos o PHPUnit para executar testes.
+- <img src="https://viacep.com.br/estatico/images/viacep.png.pagespeed.ce.I80LiA6qpr.png" alt="ViaCep" width="50" height="15"> **ViaCep**: E uma API para preenchimento automático de endereços a partir de um CEP fornecido pelo usuário.
 
 ## Funcionalidades
 
