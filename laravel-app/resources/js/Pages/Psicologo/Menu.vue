@@ -24,7 +24,7 @@ const form = ref({
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getUTCDate().toString().padStart(2, '0');
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
     const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
 }
@@ -63,24 +63,29 @@ onMounted(() => {
 function gerarEncaminhamento() {
     axios.post(route('psicologo.gerarEncaminhamento',form.value.pacienteId), form.value)
     .then(response => {
-        alert(response.data.message)
-        window.location.reload()
+        alert('Encaminhamento gerado com sucesso!');
+        window.open(response.data.url, '_blank');
+        form.value.pacienteId = null
+        form.value.texto = ''
     })
     .catch(error =>{
         console.log(error)
     })
 }
 
-function gerarAtestado() {
+ function gerarAtestado() {
     axios.post(route('psicologo.gerarAtestado', form.value.pacienteId), form.value)
-    .then(response => {
-        alert(response.data.message)
-        window.location.reload()
-    })
-    .catch(error =>{
-        console.log(error)
-    })
+        .then(response => {
+            alert('Atestado gerado com sucesso!');
+            window.open(response.data.url, '_blank');
+            form.value.pacienteId = null
+            form.value.texto = ''
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
+
 </script>
 
 <template>

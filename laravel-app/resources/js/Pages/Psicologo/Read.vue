@@ -19,8 +19,8 @@ const form = useForm({
     email: props.paciente.email,
     cep: props.paciente.cep,
     notas: '',
-    editingNote: null, // Track the note being edited
-    editNoteContent: '', // Content of the note being edited
+    editingNote: null,
+    editNoteContent: '',
 });
 
 function voltar() {

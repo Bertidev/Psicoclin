@@ -48,7 +48,7 @@ class PsicoController extends Controller
     {
         $consulta = Consultas::with('paciente')->findOrFail($id);
         $paciente = $consulta->paciente;
-        $notas = Notas::where('consulta', $id)->get(); // Carregar todas as notas relacionadas à consulta
+        $notas = Notas::where('consulta', $id)->get();
 
         return Inertia::render('Psicologo/Read', [
             'consulta' => $consulta,
@@ -126,10 +126,10 @@ class PsicoController extends Controller
         $texto = $request->input('texto');
 
         $pdf = PDF::loadView('encaminhamento', compact('paciente', 'texto'));
-        $pdf->set_option('isHtml5ParserEnabled', true);
-        $pdf->save(public_path('encaminhamento.pdf'));
+        $filename = 'encaminhamento.pdf';
+        $pdf->save(public_path($filename));
 
-        return response()->json(['message' => 'Encaminhamento gerado com sucesso.']);
+        return response()->json(['url' => asset($filename)]);
     }
 
     public function gerarAtestado(Request $request, $id)
@@ -137,12 +137,11 @@ class PsicoController extends Controller
         $paciente = User::findOrFail($id);
         $texto = $request->input('texto');
 
-        $pdf = PDF::loadView('atestado', ['paciente' => $paciente, 'texto'=>$texto]);
+        $pdf = PDF::loadView('atestado', ['paciente' => $paciente, 'texto' => $texto]);
+        $filename = 'atestado.pdf';
+        $pdf->save(public_path($filename));
 
-        $pdf->set_option('isHtml5ParserEnabled', true);
-        $pdf->save(public_path('atestado.pdf'));
-
-        return response()->json(['message' => 'Atestado gerado com sucesso.']);
+        return response()->json(['url' => asset($filename)]);
     }
 
 
