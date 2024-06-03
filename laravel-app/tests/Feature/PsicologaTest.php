@@ -19,7 +19,7 @@ class PsicologaTest extends TestCase
         $response->assertRedirect('login');
     }
 
-    public function testnewpsicoregistration(): void
+    public function test_new_psico_registration(): void
     {
         // Criar um novo usuário
         $user = new User();
@@ -36,7 +36,7 @@ class PsicologaTest extends TestCase
         $this->assertNotNull($user->id);
     }
 
-    public function testpsicodashboardrender(): void
+    public function test_psico_dashboard_render(): void
     {
         $response = $this->get('/dashboard-ps');
         $response ->  assertOk();
