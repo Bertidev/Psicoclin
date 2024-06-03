@@ -4,6 +4,17 @@
 
 Bem-vindo ao Psicoclin, um sistema desenvolvido para auxiliar uma clínica de psicologia a gerenciar suas operações e facilitar o acesso dos clientes aos serviços da clínica. Este sistema oferece funcionalidades tanto para clientes quanto para profissionais da clínica (psicólogos e secretárias), permitindo a consulta e o acréscimo de informações dos clientes com as devidas permissões de acesso.
 
+## Ferramentas utilizadas
+Este repositório contém um sistema Clínico desenvolvido utilizando:
+- <img src="https://static-00.iconduck.com/assets.00/electron-icon-472x512-8swdbwbh.png" alt="ElectronJS" width="24" height="24"> **ElectronJS** : Framework para criar aplicativos de desktop multiplataforma usando tecnologias web (HTML, CSS e JavaScript).
+- <img src="https://static-00.iconduck.com/assets.00/docker-icon-icon-2048x1479-cres2he9.png" alt="Docker" width="24" height="24"> **Docker** : Plataforma para desenvolver, enviar e executar aplicativos em contêineres.
+- <img src="https://static-00.iconduck.com/assets.00/laravel-icon-497x512-uwybstke.png" alt="Laravel" width="24" height="24"> **Laravel** : Framework PHP para desenvolvimento de aplicativos web robustos e escaláveis.
+- <img src="https://cdn-icons-png.flaticon.com/512/5968/5968332.png" alt="PHP" width="24" height="24"> **PHP** : Linguagem de programação amplamente usada para desenvolvimento web.
+- <img src="https://www.svgrepo.com/show/303251/mysql-logo.svg" alt="MySQL" width="24" height="24"> **MySQL** : Sistema de gerenciamento de banco de dados relacional.
+- <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/65dea6c4eaca7da319e552c09f4cf5a9a8dab2c8/icons/VueJS-Dark.svg" alt="VueJS" width="24" height="24"> **VueJS** : Utilizado para o front-end do projeto.
+- <img src="https://phpunit.de/img/phpunit.svg" alt="PHPUnit" width="24" height="24"> **PHPUnit** : Usamos o PHPUnit para executar testes.
+- E uma API para preenchimento automático de endereços a partir de um CEP fornecido pelo usuário.
+
 ## Funcionalidades
 
 ### Landpage para a Clínica
@@ -86,39 +97,76 @@ Bem-vindo ao Psicoclin, um sistema desenvolvido para auxiliar uma clínica de ps
     ```sh
     docker stack deploy -c docker-compose.yml [nome-do-serviço]
     ```
-
-5. Entre no bash do container:
+5. Para achar o [nome do container]:
+    ```sh
+    docker container ls
+    ```
+   
+6. Entre no bash do container:
     ```sh
     docker exec -it [nome do container] bash
     ```
 
-6. Atualize o Composer e gere a key do projeto:
+7. Atualize o Composer e gere a key do projeto:
     ```sh
     composer update && php artisan key:generate
     ```
 
-7. Realize as migrações e seeds do banco de dados:
+8. Realize as migrações e seeds do banco de dados:
     ```sh
     php artisan migrate --seed
     ```
 
-8. Instale as dependências do Node e compile os arquivos Vue:
+9. Instale as dependências do Node e compile os arquivos Vue:
     ```sh
     npm install && npm run build
     ```
 
-9. Saia do bash do container:
+10. Saia do bash do container:
     ```sh
     exit
     ```
 
-10. Rode o Electron fora do container:
+11. Rode o Electron fora do container:
     ```sh
     npm start
     ```
+
+### Testes
+- Para rodar os teste, basta utilizar o seguinte comando dentro do container:
+   ```
+   php artisan test
+   ```
 
 ### Para Parar de Utilizar o Projeto
 Para parar de utilizar o projeto, rode o seguinte comando no terminal:
 ```sh
 docker swarm leave --force
 ```
+## Observações
+
+- Da primeira vez que gerar as imagens e os containers,provavelmente vai demorar um tempo, ou ao rodar 'docker container ls' nao aparecerá nada é normal demorar da primeira vez, a imagem do laravel demora, mas funciona, é por causa do swarm;
+  
+- é normal também demorar para que o aplicativo abra ao utilizar o electron, ou que as views demorem para atualizar completamente quando utilizadas no electron;
+  
+- os documentos gerados pelo psicologo estarão no caminho laravel-app->public e serão nomeados de "atestado.pdf" ou "encaminhamento.pdf";
+  
+- Em nosso projeto, as permissões de cada usuário são distinguidas através da coluna "role" da tabela users do banco de dados, podendo ter os possíveis valores de:
+    - 0 significando que o usuario é um paciente;
+	- 1 significando que o usuario faz parte da secretaria;
+	- 2 significando que o usuario é um psicólogo;
+	- 3 significando que o usuário é um admin->há apenas um login de admin em nosso projeto;
+  
+- Todos os perfis também, possuem a senha 'password' como padrão, mas pode ser alterada caso deseje, desde que a senha nova possua no mínimo 8 caracteres.
+  
+## Developers
+   - Daniel Rossi
+     - GitHub -> https://github.com/danirso
+   - Leonardo Carbelim
+     - GitHub ->  https://github.com/LevvonDev
+   - Lucas Berti
+     - GitHub -> https://github.com/Bertidev
+   - Lucas Magaldi
+     - GitHub -> https://github.com/MAgalDI02
+   - Matheus Anitelli
+     - GitHub -> https://github.com/mttue7
