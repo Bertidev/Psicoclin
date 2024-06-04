@@ -12,21 +12,20 @@ class ConsultaNotaTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $psicologo; // Propriedade para armazenar o psicologo
-    protected $paciente; // Propriedade para armazenar o paciente
-    protected $consulta; // Propriedade para armazenar a consulta
+    protected $psicologo; 
+    protected $paciente; 
+    protected $consulta;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Cria e autentica um psicólogo
         $this->psicologo = User::factory()->create([
-            'role' => '2' // Role para 'psicólogo'
+            'role' => '2' 
         ]);
 
         $this->paciente = User::factory()->create([
-            'role' => '0' // Role para 'paciente'
+            'role' => '0'
         ]);
 
         $this->consulta = Consultas::create([

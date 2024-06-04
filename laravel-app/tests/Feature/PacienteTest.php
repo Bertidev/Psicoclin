@@ -16,10 +16,9 @@ class PacienteTest extends TestCase
     {
         parent::setUp();
 
-        // Cria e autentica um usuário fictício com a role 'paciente'
         $this->paciente = User::factory()->create([
-            'role' => '2', // Role para 'paciente'
-            'password' => bcrypt('password') // Senha criptografada
+            'role' => '2', 
+            'password' => bcrypt('password') 
         ]);
 
         $this->actingAs($this->paciente);

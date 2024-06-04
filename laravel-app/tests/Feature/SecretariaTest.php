@@ -16,9 +16,8 @@ class SecretariaTest extends TestCase
     {
         parent::setUp();
 
-        // Cria e autentica um usuário fictício com a role 'secretaria'
         $user = User::factory()->create([
-            'role' => '1' // Role para 'secretaria'
+            'role' => '1'
         ]);
 
         $this->actingAs($user);
@@ -29,7 +28,6 @@ class SecretariaTest extends TestCase
     {
         $response = $this->get(route('secretaria.dashboard'));
         $response->assertStatus(200);
-        // Adicione outras asserções conforme necessário
     }
 
     
@@ -37,7 +35,6 @@ class SecretariaTest extends TestCase
     {
         $response = $this->get(route('secretaria.create'));
         $response->assertStatus(200);
-        // Adicione outras asserções conforme necessário
     }
 
     
@@ -46,7 +43,6 @@ class SecretariaTest extends TestCase
         $user = User::factory()->create(['role' => '1']);
         $response = $this->get(route('secretaria.edit', $user->id));
         $response->assertStatus(200);
-        // Adicione outras asserções conforme necessário
     }
 
     
@@ -56,7 +52,7 @@ class SecretariaTest extends TestCase
     {
         $user = User::factory()->create(['role' => '1']);
         $response = $this->delete(route('secretaria.delete', $user->id));
-        $response->assertStatus(302); // Redireciona após a exclusão
+        $response->assertStatus(302); 
         $this->assertDatabaseMissing('users', [
             'email' => $user->email
         ]);
@@ -75,6 +71,6 @@ class SecretariaTest extends TestCase
         $otherUser = User::factory()->create(['role' => '0']);
         $this->actingAs($otherUser);
         $response = $this->get(route('secretaria.dashboard'));
-        $response->assertStatus(403); // Forbidden
+        $response->assertStatus(403); 
     }
 }
