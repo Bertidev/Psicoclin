@@ -71,14 +71,14 @@ function send(id) {
 
                         <div v-if="mustVerifyEmail && user.email_verified_at === null">
                             <p class="text-sm mt-2 text-gray-800">
-                                Your email address is unverified.
+                                Seu endereço de e-mail não foi verificado.
                                 <Link
                                     :href="route('verification.send')"
                                     method="post"
                                     as="button"
                                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
-                                    Click here to re-send the verification email.
+                                Clique aqui para reenviar o e-mail de verificação.
                                 </Link>
                             </p>
 
@@ -86,7 +86,7 @@ function send(id) {
                                 v-show="status === 'verification-link-sent'"
                                 class="mt-2 font-medium text-sm text-green-600"
                             >
-                                A new verification link has been sent to your email address.
+                            Um novo link de verificação foi enviado para o seu endereço de e-mail.
                             </div>
                         </div>
 
