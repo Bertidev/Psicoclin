@@ -43,27 +43,30 @@ const pages = [
     }
 ];
 
-
 const relatos = [
     {
         nome: 'Maria',
         idade: '21 anos',
-        conteudo: 'A Psicoclin superou todas as minhas expectativas! Desde o atendimento na recepção até as sessões com os psicólogos, tudo foi impecável. As instalações são modernas e confortáveis, e os profissionais são extremamente atenciosos e competentes. Recomendo a todos!'
+        conteudo: 'A Psicoclin superou todas as minhas expectativas! Desde o atendimento na recepção até as sessões com os psicólogos, tudo foi impecável. As instalações são modernas e confortáveis, e os profissionais são extremamente atenciosos e competentes. Recomendo a todos!',
+        imagem: 'images/paciente3.0.jpg'
     },
     {
         nome: 'Jonas',
         idade: '35 anos',
-        conteudo: 'Fiquei muito impressionado com a eficiência e a qualidade do atendimento na Psicoclin. Os psicólogos são altamente especializados e demonstram um verdadeiro compromisso com o bem-estar dos pacientes. Além disso, o tempo de espera foi mínimo, o que é um grande diferencial.'
+        conteudo: 'Fiquei muito impressionado com a eficiência e a qualidade do atendimento na Psicoclin. Os psicólogos são altamente especializados e demonstram um verdadeiro compromisso com o bem-estar dos pacientes. Além disso, o tempo de espera foi mínimo, o que é um grande diferencial.',
+        imagem: 'images/paciente4.jpg'
     },
     {
         nome: 'Tobias',
         idade: '58 anos',
-        conteudo: 'A melhor clínica de psicologia em que já estive! Os profissionais são muito dedicados e atenciosos, e o ambiente é limpo e organizado. Fui muito bem tratado desde a chegada até o momento de ir embora. Agradeço a toda a equipe pelo excelente serviço prestado.'
+        conteudo: 'A melhor clínica de psicologia em que já estive! Os profissionais são muito dedicados e atenciosos, e o ambiente é limpo e organizado. Fui muito bem tratado desde a chegada até o momento de ir embora. Agradeço a toda a equipe pelo excelente serviço prestado.',
+        imagem: 'images/paciente2.jpg'
     },
     {
         nome: 'Alberto',
         idade: '73 anos',
-        conteudo: 'Tive uma experiência maravilhosa na Psicoclin. O ambiente é muito acolhedor e a equipe é extremamente qualificada. Fui muito bem atendido e me senti em boas mãos durante todo o processo terapêutico. Com certeza voltarei se precisar de mais apoio psicológico.'
+        conteudo: 'Tive uma experiência maravilhosa na Psicoclin. O ambiente é muito acolhedor e a equipe é extremamente qualificada. Fui muito bem atendido e me senti em boas mãos durante todo o processo terapêutico. Com certeza voltarei se precisar de mais apoio psicológico.',
+        imagem: 'images/paciente1.jpg'
     },
 ];
 
@@ -111,7 +114,28 @@ defineProps({
 <style>
 .bold-text {
     font-weight: bold;
-    font-size: 18px
+    font-size: 18px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar-brand img {
+    max-width: 100px;
+}
+
+.card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.circular-image {
+    width: 85px;
+    height: 85px;
+    border-radius: 90%;
+    object-fit: cover;
 }
 </style>
 
@@ -126,117 +150,114 @@ defineProps({
             <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         </head>
-        <div>
-            <div class="d-flex justify-content-center" style="background-color: #728360; padding: 1rem 0;">
-                <img src="images/marca.png" alt="Psicoclin" style="width: 25%;">
-            </div>
-            <nav class="navbar navbar-expand-md navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                    </a>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li v-for="(page, index) in pages" class="nav-item" :key="index">
-                            <a 
-                                class="nav-link bold-text" 
-                                aria-current="page" 
-                                :href="page.link.url"
-                                :title="`this link goes to the ${page.link.text} page`"
-                                @click.prevent="activePage = index"
-                            >{{page.link.text}}</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mr-3">
-                        <li class="nav-item">
-                            <a href="/login">
-                                <button class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                    Login
-                                </button>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav> 
-            <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef); ">
-                <div class="row" v-if="activePage === 0">
-                    <div class="col-md-4 offset-md-4 text-center">
-                        <h2>{{ info[0].titulo }}</h2>
-                        <p>{{ info[0].conteudo }}</p>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <h2>{{ info[1].titulo }}</h2>
-                                <p>{{ info[1].conteudo }}</p>
-                            </div>
-                            <div class="col-md-4">
-                                <h2>{{ info[2].titulo }}</h2>
-                                <p>{{ info[2].conteudo }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" v-if="activePage === 1">
-                    <div class="col-md-3 text-center">
-                        <h2>{{ relatos[0].nome }}</h2>
-                        <p>{{ relatos[0].idade }}</p>
-                        <p>{{ relatos[0].conteudo }}</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h2>{{ relatos[1].nome }}</h2>
-                        <p>{{ relatos[1].idade }}</p>
-                        <p>{{ relatos[1].conteudo }}</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h2>{{ relatos[2].nome }}</h2>
-                        <p>{{ relatos[2].idade }}</p>
-                        <p>{{ relatos[2].conteudo }}</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h2>{{ relatos[3].nome }}</h2>
-                        <p>{{ relatos[3].idade }}</p>
-                        <p>{{ relatos[3].conteudo }}</p>
-                    </div>
-                </div>
-                <div class="row" v-if="activePage === 2">
-                    <div class="col-md-4">
-                        <h2>Nossos Contatos</h2>
-                        <p>{{ contatos[0].Email }}</p>
-                        <p>{{ contatos[0].Telefone }}</p>
-                        <p>{{ contatos[0].Horario }}</p>
-                        <h2>Fale Conosco</h2>
 
-                        <div v-if="$page.props.flash.confirmation" class="alert alert-success" role="alert">
-                        {{ $page.props.flash.confirmation }}
-                        </div>
-
-                        <form @submit.prevent="submit">
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Seu Nome</label>
-                                <input v-model="form.nome" type="text" class="form-control" id="nome" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Seu Email</label>
-                                <input v-model="form.email" type="email" class="form-control" id="email" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="assunto" class="form-label">Assunto</label>
-                                <input v-model="form.assunto" type="text" class="form-control" id="assunto" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="mensagem" class="form-label">Sua Mensagem</label>
-                                <textarea v-model="form.mensagem" class="form-control" id="mensagem" rows="5" required></textarea>
-                            </div>
-                            
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                Enviar
+        <div class="d-flex justify-content-center" style="background-color: #728360; padding: 1rem 0;">
+            <img src="images/marca.png" alt="Psicoclin" style="width: 25%;">
+        </div>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="images/logo.png" alt="Psicoclin">
+                </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li v-for="(page, index) in pages" class="nav-item" :key="index">
+                        <a 
+                            class="nav-link bold-text" 
+                            aria-current="page" 
+                            :href="page.link.url"
+                            :title="`this link goes to the ${page.link.text} page`"
+                            @click.prevent="activePage = index"
+                        >{{page.link.text}}</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mr-3">
+                    <li class="nav-item">
+                        <a href="/login">
+                            <button class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                Login
                             </button>
-
-                            <p></p>
-                        </form>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
+        <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+            <div class="row" v-if="activePage === 0">
+                <div class="col-md-4 offset-md-4 text-center">
+                    <img src="images/clinic.jpg" alt="Clínica Psicoclin" class="img-fluid mb-3">
+                    <h2>{{ info[0].titulo }}</h2>
+                    <p>{{ info[0].conteudo }}</p>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <img src="images/team.jpg" alt="Equipe Psicoclin" class="img-fluid mb-3">
+                            <h2>{{ info[1].titulo }}</h2>
+                            <p>{{ info[1].conteudo }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="images/commitment.jpg" alt="Compromisso Psicoclin" class="img-fluid mb-3">
+                            <h2>{{ info[2].titulo }}</h2>
+                            <p>{{ info[2].conteudo }}</p>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="row" v-if="activePage === 1">
+                <div v-for="(relato, index) in relatos" :key="index" class="col-md-3 text-center mb-4 mt-1">
+                    <div class="card">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img :src="relato.imagem" alt="Paciente" class="circular-image mr-2">
+                            <div class="name-age">
+                                <h5 class="card-title mb-0" style="font-size: 1.6em;">{{ relato.nome }}</h5>
+                                <p class="card-text mt-1" style="font-size: 1.2em;">{{ relato.idade }}</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-start">{{ relato.conteudo }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" v-if="activePage === 2">
+                <div class="col-md-4">
+                    <h2>Nossos Contatos</h2>
+                    <p>{{ contatos[0].Email }}</p>
+                    <p>{{ contatos[0].Telefone }}</p>
+                    <p>{{ contatos[0].Horario }}</p>
+                    <h2>Fale Conosco</h2>
+
+                    <div v-if="$page.props.flash.confirmation" class="alert alert-success" role="alert">
+                        {{ $page.props.flash.confirmation }}
+                    </div>
+
+                    <form @submit.prevent="submit">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Seu Nome</label>
+                            <input v-model="form.nome" type="text" class="form-control" id="nome" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Seu Email</label>
+                            <input v-model="form.email" type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assunto" class="form-label">Assunto</label>
+                            <input v-model="form.assunto" type="text" class="form-control" id="assunto" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="mensagem" class="form-label">Sua Mensagem</label>
+                            <textarea v-model="form.mensagem" class="form-control" id="mensagem" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-[#6F7C5E] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-[#9EA68F] focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            Enviar
+                        </button>
+
+                        <p></p>
+                    </form>
                 </div>
             </div>
         </div>

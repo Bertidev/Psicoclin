@@ -42,7 +42,6 @@ Este repositório contém um sistema Clínico desenvolvido utilizando:
 1. **Preenchimento das informações iniciais do paciente:**
     - Nome completo
     - Endereço residencial (API de CEP)
-    - Número de celular (WhatsApp)
     - Criação de usuário e senha para novos clientes
 2. **Anunciar a chegada do paciente ao psicólogo responsável**
 
@@ -145,7 +144,7 @@ docker swarm leave --force
 ```
 ## Observações
 
-- Da primeira vez que gerar as imagens e os containers,provavelmente vai demorar um tempo, ou ao rodar 'docker container ls' nao aparecerá nada é normal demorar da primeira vez, a imagem do laravel demora, mas funciona, é por causa do swarm;
+- Na primeira vez que você gerar as imagens e os containers, é provável que o processo demore um tempo considerável. Além disso, ao executar o comando 'docker container ls', pode não aparecer nenhum container imediatamente. Esse atraso é normal na primeira execução, especialmente devido ao tempo que a imagem do Laravel leva para ser criada e inicializada. Esse comportamento ocorre devido ao uso do Docker Swarm.
   
 - é normal também demorar para que o aplicativo abra ao utilizar o electron, ou que as views demorem para atualizar completamente quando utilizadas no electron;
   
