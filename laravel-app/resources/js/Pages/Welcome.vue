@@ -43,32 +43,64 @@ const pages = [
     }
 ];
 
-const relatos = [
+const relatos = ref([
     {
         nome: 'Maria',
         idade: '21 anos',
         conteudo: 'A Psicoclin superou todas as minhas expectativas! Desde o atendimento na recepção até as sessões com os psicólogos, tudo foi impecável. As instalações são modernas e confortáveis, e os profissionais são extremamente atenciosos e competentes. Recomendo a todos!',
-        imagem: 'images/paciente3.0.jpg'
+        imagem: 'images/paciente3.0.jpg',
+        estrelas: 5
     },
     {
         nome: 'Jonas',
         idade: '35 anos',
         conteudo: 'Fiquei muito impressionado com a eficiência e a qualidade do atendimento na Psicoclin. Os psicólogos são altamente especializados e demonstram um verdadeiro compromisso com o bem-estar dos pacientes. Além disso, o tempo de espera foi mínimo, o que é um grande diferencial.',
-        imagem: 'images/paciente4.jpg'
+        imagem: 'images/paciente4.jpg',
+        estrelas: 4
     },
     {
         nome: 'Tobias',
         idade: '58 anos',
         conteudo: 'A melhor clínica de psicologia em que já estive! Os profissionais são muito dedicados e atenciosos, e o ambiente é limpo e organizado. Fui muito bem tratado desde a chegada até o momento de ir embora. Agradeço a toda a equipe pelo excelente serviço prestado.',
-        imagem: 'images/paciente2.jpg'
+        imagem: 'images/paciente2.jpg',
+        estrelas: 4
     },
     {
         nome: 'Alberto',
         idade: '73 anos',
         conteudo: 'Tive uma experiência maravilhosa na Psicoclin. O ambiente é muito acolhedor e a equipe é extremamente qualificada. Fui muito bem atendido e me senti em boas mãos durante todo o processo terapêutico. Com certeza voltarei se precisar de mais apoio psicológico.',
-        imagem: 'images/paciente1.jpg'
+        imagem: 'images/paciente1.jpg',
+        estrelas: 5
     },
-];
+    {
+        nome: 'Maria Silva',
+        idade: '28 anos',
+        conteudo: 'Minha experiência na Psicoclin foi transformadora. Desde o primeiro atendimento, fui acolhida com muita empatia e profissionalismo. Minha psicóloga me ajudou a lidar com questões pessoais e profissionais que estavam me afetando profundamente. A equipe é extremamente dedicada e o ambiente da clínica é acolhedor e confortável. Recomendo a Psicoclin para todos que buscam um acompanhamento psicológico de qualidade.',
+        imagem: 'images/paciente6.jpg',
+        estrelas: 5
+    },
+    {
+        nome: 'João Pereira',
+        idade: '31 anos',
+        conteudo: 'Frequento a Psicoclin há alguns meses e tenho notado uma grande melhora em minha saúde mental. Os psicólogos são muito capacitados e atenciosos. Eles realmente se preocupam com o bem-estar dos pacientes. A única coisa que eu sugeriria é uma maior flexibilidade nos horários de atendimento, pois às vezes é difícil conseguir um horário compatível com minha agenda de trabalho. No geral, estou muito satisfeito com os serviços prestados.',
+        imagem: 'images/paciente7.jpg',
+        estrelas: 4
+    },
+    {
+        nome: 'Ana Garcia',
+        idade: '20 anos',
+        conteudo: 'Minha experiência na Psicoclin foi boa, mas não extraordinária. A clínica é bem organizada e os profissionais são competentes, mas senti que o atendimento poderia ser mais personalizado. Houve momentos em que parecia que meu terapeuta estava seguindo um roteiro padrão, sem considerar tanto minhas necessidades individuais. Ainda assim, consegui obter algum progresso em meus problemas pessoais.',
+        imagem: 'images/paciente5.jpg',
+        estrelas: 3
+    },
+    {
+        nome: 'Pedro Lima',
+        idade: '59 anos',
+        conteudo: 'Infelizmente, minha experiência na Psicoclin não foi positiva. Tive dificuldades em me conectar com meu terapeuta e senti que minhas preocupações não eram totalmente compreendidas. Além disso, houve um problema de comunicação que resultou em um cancelamento de sessão sem aviso prévio, o que foi bastante frustrante. Embora a clínica tenha boa infraestrutura, minha experiência pessoal deixou a desejar. Não pretendo continuar com o tratamento lá.',
+        imagem: 'images/paciente8.jpg',
+        estrelas: 1
+    },
+]);
 
 const contatos = [
     {
@@ -81,17 +113,35 @@ const contatos = [
 const info = [
     {
         titulo: 'A Psicoclin',
-        conteudo: 'A Psicoclin é uma clínica de psicologia localizada na Barra da Tijuca, no Rio de Janeiro. Fundada em 2016, a clínica tem mais de 7 anos de experiência no mercado e é referência na área. Ela está situada no Cittá América, um centro comercial e empresarial.'
+        conteudo: `A Psicoclin é uma renomada clínica de psicologia localizada no coração da Barra da Tijuca, no Rio de Janeiro. Fundada em 2016, a clínica acumula mais de 7 anos de experiência, tornando-se uma referência no campo da saúde mental. Situada no prestigiado Cittá América, um centro comercial e empresarial de fácil acesso, a Psicoclin oferece um ambiente acolhedor e profissional para todos os seus pacientes.
+
+Instalações Modernas: Nossas instalações são modernas, confortáveis e cuidadosamente projetadas para proporcionar um ambiente tranquilo e seguro. Cada detalhe foi pensado para garantir que nossos pacientes se sintam à vontade e possam focar em seu bem-estar emocional e mental.
+
+Tecnologia de Ponta: Utilizamos tecnologia de ponta para apoiar nossos tratamentos. Desde a gestão de prontuários eletrônicos até a realização de sessões por telemedicina, estamos equipados para oferecer o melhor atendimento, seja presencial ou à distância.
+
+Localização Privilegiada: A Psicoclin está estrategicamente localizada ao lado do Shopping Downtown e próxima ao supermercado ASSAÍ, com fácil acesso pela estação BRT Bosque Marapendi. Nossos pacientes encontram conveniência e facilidade para chegar até nós, independentemente do meio de transporte utilizado.`
     },
     {
         titulo: 'A Equipe',
-        conteudo: 'A clínica conta com uma equipe de 4 psicólogos especializados em diversas áreas da psicologia. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades.'
+        conteudo: `Equipe Multidisciplinar: Nossa equipe é composta por seis psicólogos altamente especializados em diversas áreas da psicologia, incluindo psicoterapia, psicologia infantil, terapia de casal, e mais. Esses profissionais estão preparados para atender pacientes de todas as idades e necessidades, oferecendo um atendimento personalizado e de qualidade.
+
+Qualificações e Experiência: Todos os nossos psicólogos possuem vasta experiência e são constantemente atualizados com as melhores práticas e técnicas terapêuticas. Participam regularmente de cursos, workshops e conferências para garantir que nossos pacientes recebam um atendimento baseado nas mais recentes descobertas e métodos da psicologia.
+
+Empatia e Dedicação: Na Psicoclin, acreditamos que a empatia é fundamental para o sucesso do tratamento. Nossa equipe é dedicada, atenciosa e comprometida com o bem-estar de cada paciente, proporcionando um espaço seguro e acolhedor para que possam expressar suas emoções e enfrentar seus desafios.`
     },
     {
         titulo: 'Compromisso',
-        conteudo: 'Os valores da Psicoclin incluem ética, compromisso, respeito e qualidade nos serviços. A equipe se esforça para garantir excelência no atendimento e empatia com os pacientes.'
+        conteudo: `Valores: Os valores da Psicoclin incluem ética, compromisso, respeito e qualidade nos serviços prestados. Acreditamos na importância de tratar cada paciente com dignidade e respeito, oferecendo um atendimento humanizado e centrado no paciente.
+
+Ética e Sigilo: Garantimos que todas as informações dos nossos pacientes sejam tratadas com o mais alto nível de confidencialidade e respeito. Seguimos rigorosamente os códigos de ética da profissão para assegurar que nossos pacientes se sintam seguros e confiantes em compartilhar suas experiências.
+
+Qualidade no Atendimento: Nos esforçamos continuamente para garantir excelência no atendimento. Isso inclui desde a pontualidade nas consultas até a personalização do tratamento, sempre buscando a melhor abordagem para cada caso. Nosso compromisso é com a saúde mental e emocional de nossos pacientes, ajudando-os a alcançar uma vida mais equilibrada e satisfatória.
+
+Apoio Contínuo: Sabemos que a jornada para o bem-estar mental não termina após uma sessão. Por isso, oferecemos suporte contínuo para nossos pacientes, incluindo follow-ups, recursos educativos e acesso facilitado aos nossos profissionais sempre que necessário.`
     }
 ];
+
+
 
 defineProps({
     canLogin: {
@@ -127,7 +177,7 @@ img {
 }
 
 .card-img-top {
-    max-height: 300px;
+    max-height: 200px;
     object-fit: cover;
 }
 
@@ -136,6 +186,47 @@ img {
     height: 85px;
     border-radius: 90%;
     object-fit: cover;
+}
+
+.stars {
+    margin-bottom: 10px;
+}
+
+.star {
+    font-size: 20px;
+    color: lightgray;
+}
+
+.star.filled {
+    color: gold;
+}
+
+.psicoclin-image {
+    max-width: 75%; 
+    margin-right: 20px; 
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 img {
+        max-width: 100%;
+    }
+    .d-flex {
+        display: flex;
+    }
+    .justify-content-center {
+        justify-content: center;
+    }
+    .flex-column {
+        flex-direction: column;
+    }
 }
 </style>
 
@@ -182,24 +273,36 @@ img {
             </div>
         </nav> 
         <div id="content" class="container-fluid" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
-            <div class="row" v-if="activePage === 0">
-                <div class="col-md-4 offset-md-4 text-center">
-                    <img src="images/clinic.jpg" alt="Clínica Psicoclin" class="img-fluid mb-3">
-                    <h2>{{ info[0].titulo }}</h2>
-                    <p>{{ info[0].conteudo }}</p>
+            <div class="row mb-5" v-if="activePage === 0">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <img src="images/clinica.jpeg" alt="Clínica Psicoclin" class="img-fluid mb-3 psicoclin-image">
                 </div>
-                <div class="col-md-12 text-center">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <img src="images/team.jpg" alt="Equipe Psicoclin" class="img-fluid mb-3">
-                            <h2>{{ info[1].titulo }}</h2>
-                            <p>{{ info[1].conteudo }}</p>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="images/commitment.jpg" alt="Compromisso Psicoclin" class="img-fluid mb-3">
-                            <h2>{{ info[2].titulo }}</h2>
-                            <p>{{ info[2].conteudo }}</p>
-                        </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center text-center">
+                    <div class="mb-4 text-center">
+                        <h2>{{ info[0].titulo }}</h2>
+                        <p v-for="paragraph in info[0].conteudo.split('\n\n')" :key="paragraph" class="text-justify">{{ paragraph }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5" v-if="activePage === 0">
+                <div class="col-md-6 d-flex flex-column justify-content-center text-center order-md-1">
+                    <div class="mb-4 text-center">
+                        <h2>{{ info[1].titulo }}</h2>
+                        <p v-for="paragraph in info[1].conteudo.split('\n\n')" :key="paragraph" class="text-justify">{{ paragraph }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center align-items-center order-md-2">
+                    <img src="images/equipe2.jpg" alt="Equipe Psicoclin" class="img-fluid mb-3 psicoclin-image">
+                </div>
+            </div>
+            <div class="row mb-5" v-if="activePage === 0">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <img src="images/compromisso3.jpg" alt="Compromisso Psicoclin" class="img-fluid mb-3 psicoclin-image">
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center text-center">
+                    <div class="mb-4 text-center">
+                        <h2>{{ info[2].titulo }}</h2>
+                        <p v-for="paragraph in info[2].conteudo.split('\n\n')" :key="paragraph" class="text-justify">{{ paragraph }}</p>
                     </div>
                 </div>
             </div>
@@ -214,6 +317,9 @@ img {
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="stars">
+                                <span v-for="star in 5" :key="star" class="star" :class="{'filled': star <= relato.estrelas}">★</span>
+                            </div>
                             <p class="card-text text-start">{{ relato.conteudo }}</p>
                         </div>
                     </div>
